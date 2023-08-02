@@ -62,11 +62,11 @@ namespace prueba
                             //             ******************* Lectura Db principal *****************
                             int condition = Client.DBRead(db, 0, buffer.Length, buffer); //db numero del espacio de memoria
                             int db303 = Client.DBRead(303, 0, buffer303.Length, buffer303);// leo los valores de la db303
-                          
+
                             //****************************estado de la conexion del plc ***********
-                            //bool respuesta = S7.GetBitAt(buffer, 1, 7);
-                            //S7.SetBitAt(buffer303, 1, 0, respuesta);
-                            //int watchdog = Client.DBWrite(303, 0, buffer303.Length, buffer303);
+                            bool respuesta = S7.GetBitAt(buffer, 1, 7);
+                            S7.SetBitAt(buffer303, 1, 0, respuesta);
+                            int watchdog = Client.DBWrite(303, 0, buffer303.Length, buffer303);
                             //******************************************************************************
 
                             if (condition != 0)
