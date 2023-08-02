@@ -64,9 +64,9 @@ namespace prueba
                             int db303 = Client.DBRead(303, 0, buffer303.Length, buffer303);// leo los valores de la db303
                           
                             //****************************estado de la conexion del plc ***********
-                            bool respuesta = S7.GetBitAt(buffer, 1, 7);
-                            S7.SetBitAt(buffer303, 1, 0, respuesta);
-                            int watchdog = Client.DBWrite(303, 0, buffer303.Length, buffer303);
+                            //bool respuesta = S7.GetBitAt(buffer, 1, 7);
+                            //S7.SetBitAt(buffer303, 1, 0, respuesta);
+                            //int watchdog = Client.DBWrite(303, 0, buffer303.Length, buffer303);
                             //******************************************************************************
 
                             if (condition != 0)
@@ -166,17 +166,17 @@ namespace prueba
                                 //Console.WriteLine(forzarContadorB);
                                 if (forzarContadorB)
                                 {
-                                    //Console.WriteLine("entro");
-                                    int valorAAsignarB = S7.GetIntAt(buffer, 10);
-                                    //Console.WriteLine(valorAAsignarB);
-                                    tracking_cameraB.contador = valorAAsignarB;
-                                    tracking_cameraB.auxcontador1 = valorAAsignarB;
-                                    tracking_cameraB.auxcontador2 = valorAAsignarB;
-                                    tracking_cameraB.auxcontador3 = valorAAsignarB;
-                                    //var bufferForzar = new byte[1];
-                                   // bool value = false;
-                                    S7.SetBitAt(buffer, 1, 0, false);
-                                    int writeForzar = Client.DBWrite(300, 0, buffer.Length, buffer);
+                                   // //Console.WriteLine("entro");
+                                   // int valorAAsignarB = S7.GetIntAt(buffer, 10);
+                                   // //Console.WriteLine(valorAAsignarB);
+                                   // tracking_cameraB.contador = valorAAsignarB;
+                                   // tracking_cameraB.auxcontador1 = valorAAsignarB;
+                                   // tracking_cameraB.auxcontador2 = valorAAsignarB;
+                                   // tracking_cameraB.auxcontador3 = valorAAsignarB;
+                                   // //var bufferForzar = new byte[1];
+                                   //// bool value = false;
+                                   // S7.SetBitAt(buffer, 1, 0, false);
+                                   // int writeForzar = Client.DBWrite(300, 0, buffer.Length, buffer);
                                 }
                             }
                             if (IniciarPararMedB == false)
