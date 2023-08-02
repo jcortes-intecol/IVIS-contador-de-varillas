@@ -226,7 +226,7 @@ namespace prueba
                                 break;
                             }
 
-                            Thread.Sleep(10);
+                            Thread.Sleep(150);
 
                             //temporizador.Stop();
 
