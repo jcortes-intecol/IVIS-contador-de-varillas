@@ -9,6 +9,8 @@ using TRACKING.Data;
 using TRACKING.Entity;
 using TRACKING.Negocio;
 
+using System.Diagnostics;
+
 namespace prueba
 {
 
@@ -43,7 +45,8 @@ namespace prueba
         public static Mat TrackerObjecCameraB(Mat image_rgb, Mat image_binarizada_rgb, Point[][] Contornos, HierarchyIndex[] Indexes)
         {
 
-
+            Stopwatch temporizador = new Stopwatch();
+            temporizador.Start();
             Referencias referenciaB = NReferencia.ObtenerReferenciaB(mainB.IdReceta)[0];
             int dist_umbral_below = referenciaB.distUmbralBelow;
             int dist_umbral_above = referenciaB.distUmbralAbove;
@@ -354,7 +357,10 @@ namespace prueba
                 Cv2.WaitKey(1);
 
             }
-
+            temporizador.Stop();
+            TimeSpan tiempoTranscurrido = temporizador.Elapsed;
+            double milisegundos = tiempoTranscurrido.TotalMilliseconds;
+            //Console.WriteLine(milisegundos.ToString());
             return image_rgb;
         }
         //public static int Count(double CoordenadasXAnteriores, double CoordenadasXActuales, int x_umbral, int width, int height, int widht_umbral, int height_umbral)
