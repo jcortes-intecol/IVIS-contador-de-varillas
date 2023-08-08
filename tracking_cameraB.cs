@@ -149,8 +149,8 @@ namespace prueba
             var objetosNuevos = new Dictionary<int, (int, int, int, int, int)>();
             var mismoobjeto = false;
             int x_umbral = (int)(image_rgb.Width * porcentaje_umbral_X);
-            x_umbral1 = (int)(image_rgb.Width * 0.4);
-            x_umbral2 = (int)(image_rgb.Width * 0.6);
+            x_umbral1 = (int)(image_rgb.Width * 0.5);//0.4 habia
+            x_umbral2 = (int)(image_rgb.Width * 0.7);//
             lineaEliminar = (int)(image_rgb.Width * 0.98);
 
 
@@ -209,7 +209,11 @@ namespace prueba
                         var done2 = 0;//se adiciono
                         mismoobjeto = false;
 
-                        objetos = objetos.OrderBy(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);//para recorrer B
+                        //objetos = objetos.OrderBy(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);//para recorrer B
+
+                        var objetos1 = objetos.OrderByDescending(kpv => kpv.Value.Item2).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);//para recorrer B se adiciono
+                        objetos = objetos1.OrderByDescending(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);//para recorrer se adiciono
+                        int objetoevaluar = 0;
 
                         foreach (var data in objetos)
                         {
@@ -227,7 +231,7 @@ namespace prueba
                             dis = Convert.ToInt16(dis);
 
 
-                            if (dis >= dist_umbral_below && dis < dist_umbral_above /*&& !lista_aux.Contains(idObjeto)*/ && !mismoobjeto)
+                            if (dis >= dist_umbral_below && dis < dist_umbral_above /*&& !lista_aux.Contains(idObjeto)*/ && !mismoobjeto && contourIndex == objetoevaluar)
                             {
                                 if (img_morfologica_display == 1)
                                 {
@@ -279,6 +283,7 @@ namespace prueba
                                 //lista_aux.Add(idObjeto);
                                 break;
 
+
                             }
                             else
                             {
@@ -289,6 +294,7 @@ namespace prueba
                                 }
 
                             }
+                            objetoevaluar++;//**ultima adicion 
 
                         }
 
