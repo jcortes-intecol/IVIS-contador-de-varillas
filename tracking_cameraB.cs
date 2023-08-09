@@ -32,10 +32,11 @@ namespace prueba
         public static int auxcontador1 = 0;//se adiciono
         public static int auxcontador2 = 0;//se adiciono
         public static int auxcontador3 = 0;//se adiciono
+        public static int auxcontador4 = 0;//se adiciono
         public static bool pararconteo;
 
         //public static Dictionary<int, (int, int, int)> objetos = new Dictionary<int, (int, int, int)>();
-        public static Dictionary<int, (int, int, int, int, int)> objetos = new Dictionary<int, (int, int, int, int, int)>();//se adiciono
+        public static Dictionary<int, (int, int, int, int, int, int)> objetos = new Dictionary<int, (int, int, int, int, int, int)>();//se adiciono
                                                                                                                             //public static List<int> objetosAEliminar = new List<int>(objetos.Keys);
                                                                                                                             //public static Dictionary<int, Tuple<int, int, int>> objetosNuevos = new Dictionary<int, Tuple<int, int, int>>();
 
@@ -109,51 +110,34 @@ namespace prueba
             var sortedContours = Contornos.OrderByDescending(sortedContours1 => Cv2.BoundingRect(sortedContours1).X);
             //var sortedContours = Contornos.OrderByDescending(contour => Cv2.BoundingRect(contour).X); //para camara B
 
+            // =====================================================================================================================
+            // ====================================== Eliminar del diccionario =====================================================
+            // =====================================================================================================================
 
-            if (objetos.Count() != 0)
-            {
-                objetos = objetos.OrderByDescending(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);// para A y B
-                var primerElem = objetos.First();
-                if (primerElem.Value.Item1 >= lineaEliminar)
-                {
-                    objetos.Remove(primerElem.Key);
-
-                }
-
-            }
-
-
-            //var numcontornos = Contornos.Length;
-            //var restacontor = contorAnterior - numcontornos;
-
-
-            //if (restacontor > 0 && objetos.Count()!=0)
+            //if (objetos.Count() != 0)
             //{
-
-            //    for (int i = 0; i < restacontor; i++)
+            //    objetos = objetos.OrderByDescending(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);// para A y B
+            //    var primerElem = objetos.First();
+            //    if (primerElem.Value.Item1 >= lineaEliminar)
             //    {
-            //        objetos = objetos.OrderByDescending(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);// para A y B
-            //        var primerElem = objetos.First();//para B eliminar el primero
             //        objetos.Remove(primerElem.Key);
-
-
             //    }
 
-
             //}
-            //contorAnterior = numcontornos;
+
+            // =====================================================================================================================
+            // ====================================== Eliminar del diccionario END =================================================
+            // =====================================================================================================================
 
 
             var objetosAEliminar = new List<int>(objetos.Keys);
             //var objetosNuevos = new Dictionary<int, (int, int, int)>();//se adiciono
-            var objetosNuevos = new Dictionary<int, (int, int, int, int, int)>();
+            var objetosNuevos = new Dictionary<int, (int, int, int, int, int, int)>();
             var mismoobjeto = false;
             int x_umbral = (int)(image_rgb.Width * porcentaje_umbral_X);
             x_umbral1 = (int)(image_rgb.Width * 0.4);
             x_umbral2 = (int)(image_rgb.Width * 0.6);
             lineaEliminar = (int)(image_rgb.Width * 0.98);
-
-
 
             Cv2.Line(image_rgb, x_umbral, 2, x_umbral, image_rgb.Height - 1, Scalar.Blue);
             Cv2.Line(image_rgb, x_umbral1, 2, x_umbral1, image_rgb.Height - 1, Scalar.Blue);
@@ -199,7 +183,7 @@ namespace prueba
                             //Cv2.PutText(image_binarizada_rgb, $"A: ({Area})", new Point(posXActual, posYActual + image_rgb.Height * 0.2), HersheyFonts.HersheyScriptComplex, 0.5, new Scalar(255, 255, 0));
                           
                           
-                                Cv2.PutText(image_binarizada_rgb, $"A: ({Area})", new Point(posXActual, posYActual + image_rgb.Height * 0.2), HersheyFonts.HersheyScriptComplex, 0.5, Scalar.LimeGreen);
+                            Cv2.PutText(image_binarizada_rgb, $"A: ({Area})", new Point(posXActual, posYActual + image_rgb.Height * 0.2), HersheyFonts.HersheyScriptComplex, 0.5, Scalar.LimeGreen);
                            
                             Cv2.PutText(image_binarizada_rgb, $"w, h: ({w}),({h})", new Point(posXActual, posYActual + image_rgb.Height * 0.3), HersheyFonts.HersheyScriptComplex, 0.5, new Scalar(255, 255, 0));
                         }
@@ -207,6 +191,7 @@ namespace prueba
                         var done = 0;
                         var done1 = 0;//se adiciono
                         var done2 = 0;//se adiciono
+                        var done3 = 0;
                         mismoobjeto = false;
 
                         objetos = objetos.OrderBy(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);//para recorrer B
@@ -221,17 +206,20 @@ namespace prueba
                             done = value.Item3;//se adiciono
                             done1 = value.Item4;//se adiciono
                             done2 = value.Item5;//se adiciono
-
-                            var dis = Math.Sqrt(Math.Pow(posXActual - posXanterior, 2) + Math.Pow(posYActual - posYanterior, 2));
-
-                            dis = Convert.ToInt16(dis);
+                            done3 = value.Item6;
 
 
-                            if (dis >= dist_umbral_below && dis < dist_umbral_above /*&& !lista_aux.Contains(idObjeto)*/ && !mismoobjeto)
+
+                            var distance = Math.Sqrt(Math.Pow(posXActual - posXanterior, 2) + Math.Pow(posYActual - posYanterior, 2));
+
+                            distance = Convert.ToInt16(distance);
+
+
+                            if (distance >= dist_umbral_below && distance < dist_umbral_above && !mismoobjeto)
                             {
                                 if (img_morfologica_display == 1)
                                 {
-                                    Cv2.PutText(image_binarizada_rgb, Convert.ToString(dis), new Point((posXActual + posXanterior) / 2, (posYActual + posYanterior) / 2 - count_obj * 5), HersheyFonts.Italic, 1.2, new Scalar(255, 0, 0));
+                                    Cv2.PutText(image_binarizada_rgb, Convert.ToString(distance), new Point((posXActual + posXanterior) / 2, (posYActual + posYanterior) / 2 - count_obj * 5), HersheyFonts.Italic, 1.2, new Scalar(255, 0, 0));
                                     Cv2.Line(image_binarizada_rgb, posXActual, posYActual, posXanterior, posYanterior, new Scalar(255, 0, 0));
                                     //Cv2.Rectangle(image_binarizada_rgb, new Point(x, y), new Point(x + w, y + h), Scalar.White, 2);
                                 }
@@ -264,6 +252,24 @@ namespace prueba
 
                                     }
 
+                                    // =====================================================================================================================
+                                    // ====================================== Eliminar del diccionario =====================================================
+                                    // =====================================================================================================================
+
+                                    if (done3 == 0)//Linea de eliminacion
+                                    {
+                                        done3 = Count(posXanterior, posXActual, x_umbral2, w, h, width_umbral, height_humbral, auxcontador4).Item1;
+                                        auxcontador4 = Count(posXanterior, posXActual, x_umbral2, w, h, width_umbral, height_humbral, auxcontador4).Item2;
+                                        if (auxcontador4 != 0)
+                                        {
+                                            objetos.Remove(idObjeto);
+                                        }
+                                    }
+
+                                    // =====================================================================================================================
+                                    // ====================================== Eliminar del diccionario END =================================================
+                                    // =====================================================================================================================
+
                                     if (mainB.IdReceta >= 10)
                                     {
                                         contador = auxcontador1;
@@ -273,18 +279,19 @@ namespace prueba
                                 {
                                     Cv2.PutText(image_rgb, "Conteo pausado", new Point(50, 300), HersheyFonts.Italic, 2, new Scalar(255, 0, 0), 5);
                                 }
-                                objetos[idObjeto] = (posXActual, posYActual, done, done1, done2);
-                                objetosNuevos[idObjeto] = (posXActual, posYActual, done, done1, done2);
+                                objetos[idObjeto] = (posXActual, posYActual, done, done1, done2, done3);
+                                objetosNuevos[idObjeto] = (posXActual, posYActual, done, done1, done2, done3);
                                 mismoobjeto = true;
                                 //lista_aux.Add(idObjeto);
                                 break;
 
                             }
+                            //Else linea azul
                             else
                             {
                                 if (img_morfologica_display == 1)
                                 {
-                                    Cv2.PutText(image_binarizada_rgb, Convert.ToString(dis), new Point((posXActual + posXanterior) / 2, (posYActual + posYanterior) / 2 - 10), HersheyFonts.Italic, 0.5, new Scalar(0, 0, 255));
+                                    Cv2.PutText(image_binarizada_rgb, Convert.ToString(distance), new Point((posXActual + posXanterior) / 2, (posYActual + posYanterior) / 2 - 10), HersheyFonts.Italic, 0.5, new Scalar(0, 0, 255));
                                     Cv2.Line(image_binarizada_rgb, posXActual, posYActual, posXanterior, posYanterior, new Scalar(0, 0, 255));
                                 }
 
@@ -301,7 +308,7 @@ namespace prueba
 
                         if (!mismoobjeto)
                         {
-                            objetosNuevos.Add(id_cont, (posXActual, posYActual, 0, 0, 0));
+                            objetosNuevos.Add(id_cont, (posXActual, posYActual, 0, 0, 0, 0));
                             id_cont++;
 
                         }
@@ -327,10 +334,10 @@ namespace prueba
             var valoresUnicos = new List<object>();
             foreach (var (idObjeto, value) in objetosNuevos)
             {
-                var objetoAnonimo = new { Item1 = value.Item1, Item2 = value.Item2, Item3 = value.Item3, Item4 = value.Item4, Item5 = value.Item5 };
+                var objetoAnonimo = new { Item1 = value.Item1, Item2 = value.Item2, Item3 = value.Item3, Item4 = value.Item4, Item5 = value.Item5, Item6 = value.Item6 };
                 if (!valoresUnicos.Any(o => o.Equals(objetoAnonimo)))
                 {
-                    var tupla = (objetoAnonimo.Item1, objetoAnonimo.Item2, objetoAnonimo.Item3, objetoAnonimo.Item4, objetoAnonimo.Item5);
+                    var tupla = (objetoAnonimo.Item1, objetoAnonimo.Item2, objetoAnonimo.Item3, objetoAnonimo.Item4, objetoAnonimo.Item5, objetoAnonimo.Item6);
                     objetos[idObjeto] = tupla;
                     valoresUnicos.Add(objetoAnonimo);
                 }
