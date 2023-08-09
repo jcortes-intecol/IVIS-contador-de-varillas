@@ -151,7 +151,7 @@ namespace prueba
             int x_umbral = (int)(image_rgb.Width * porcentaje_umbral_X);
             x_umbral1 = (int)(image_rgb.Width * 0.5);//0.4 habia
             x_umbral2 = (int)(image_rgb.Width * 0.7);//
-            lineaEliminar = (int)(image_rgb.Width * 0.98);
+            lineaEliminar = (int)(image_rgb.Width * 0.97);
 
 
 
