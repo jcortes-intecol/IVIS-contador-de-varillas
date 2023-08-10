@@ -305,7 +305,7 @@ namespace prueba
             }
 
             Mat resp = new Mat();
-            Cv2.Add(image_rgb, mainB.fondoNuevoA, resp);
+            //Cv2.Add(image_rgb, mainB.fondoNuevoA, resp);
             //Cv2.Add(image_binarizada_rgb, mainB.fondoNuevoA, image_binarizada_rgb);
 
             if (PLCimg_morfologica_display)

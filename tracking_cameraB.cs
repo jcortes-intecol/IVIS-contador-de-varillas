@@ -110,17 +110,17 @@ namespace prueba
             //var sortedContours = Contornos.OrderByDescending(contour => Cv2.BoundingRect(contour).X); //para camara B
 
 
-            if (objetos.Count() != 0)
-            {
-                objetos = objetos.OrderByDescending(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);// para A y B
-                var primerElem = objetos.First();
-                if (primerElem.Value.Item1 >= lineaEliminar)
-                {
-                    objetos.Remove(primerElem.Key);
+            //if (objetos.Count() != 0)
+            //{
+            //    objetos = objetos.OrderByDescending(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);// para A y B
+            //    var primerElem = objetos.First();
+            //    if (primerElem.Value.Item1 >= lineaEliminar)
+            //    {
+            //        objetos.Remove(primerElem.Key);
 
-                }
+            //    }
 
-            }
+            //}
 
 
             //var numcontornos = Contornos.Length;
@@ -225,13 +225,14 @@ namespace prueba
                             done = value.Item3;//se adiciono
                             done1 = value.Item4;//se adiciono
                             done2 = value.Item5;//se adiciono
+                            var desplazamientoX = posXActual - posXanterior;
 
                             var dis = Math.Sqrt(Math.Pow(posXActual - posXanterior, 2) + Math.Pow(posYActual - posYanterior, 2));
 
                             dis = Convert.ToInt16(dis);
 
 
-                            if (dis >= dist_umbral_below && dis < dist_umbral_above /*&& !lista_aux.Contains(idObjeto)*/ && !mismoobjeto && contourIndex == objetoevaluar)
+                            if (dis >= dist_umbral_below && dis < dist_umbral_above /*&& !lista_aux.Contains(idObjeto)*/ && !mismoobjeto /*&& contourIndex == objetoevaluar*/ && desplazamientoX >= 0)
                             {
                                 if (img_morfologica_display == 1)
                                 {
@@ -305,7 +306,7 @@ namespace prueba
 
                         //}
 
-                        if (!mismoobjeto)
+                        if (!mismoobjeto && posXActual < x_umbral1)
                         {
                             objetosNuevos.Add(id_cont, (posXActual, posYActual, 0, 0, 0));
                             id_cont++;
@@ -345,13 +346,25 @@ namespace prueba
 
             Mat resp = new Mat();
             //Cv2.Add(image_rgb, mainB.fondoNuevo, resp);
-            Cv2.Add(image_rgb, mainB.fondoNuevo, image_rgb);
+            //Cv2.Add(image_rgb, mainB.fondoNuevo, image_rgb);
             //Cv2.Add(image_binarizada_rgb, mainB.fondoNuevo, image_binarizada_rgb);
 
             /*if ( PLCimg_morfologica_display)
             {
                 Cv2.ImShow("Imagen final B", image_rgb);
             }*/
+
+            if (objetos.Count() != 0)
+            {
+                objetos = objetos.OrderByDescending(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);// para A y B
+                var primerElem = objetos.First();
+                if (primerElem.Value.Item1 >= lineaEliminar)
+                {
+                    objetos.Remove(primerElem.Key);
+
+                }
+
+            }
 
             if (img_morfologica_display == 1 || PLCimg_morfologica_display)
             {
@@ -363,9 +376,9 @@ namespace prueba
                 Cv2.WaitKey(1);
 
             }
-            temporizador.Stop();
-            TimeSpan tiempoTranscurrido = temporizador.Elapsed;
-            double milisegundos = tiempoTranscurrido.TotalMilliseconds;
+            //temporizador.Stop();
+            //TimeSpan tiempoTranscurrido = temporizador.Elapsed;
+            //double milisegundos = tiempoTranscurrido.TotalMilliseconds;
             //Console.WriteLine(milisegundos.ToString());
             return image_rgb;
         }

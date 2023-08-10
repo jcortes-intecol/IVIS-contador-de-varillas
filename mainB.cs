@@ -43,9 +43,9 @@ namespace prueba
         //Se agrega la imagen promedidada para eliminar el ruido de fondo (jairo 26/06/2023)
         static Mat fondo = Cv2.ImRead("C:\\Users\\intecol\\Documents\\Despliegue\\IVIS_TRACKING\\imagen_promediada.png", ImreadModes.Grayscale);
 
-        public static Mat fondoNuevo = Cv2.ImRead("C:\\Users\\intecol\\Documents\\Despliegue\\IVIS_TRACKING\\fondonuevo.png", ImreadModes.Grayscale);
+        //public static Mat fondoNuevo = Cv2.ImRead("C:\\Users\\intecol\\Documents\\Despliegue\\IVIS_TRACKING\\fondonuevo.png", ImreadModes.Grayscale);
 
-        public static Mat fondoNuevoA = Cv2.ImRead("C:\\Users\\intecol\\Documents\\Despliegue\\IVIS_TRACKING\\fondonuevoa.jpg", ImreadModes.Grayscale);
+        //public static Mat fondoNuevoA = Cv2.ImRead("C:\\Users\\intecol\\Documents\\Despliegue\\IVIS_TRACKING\\fondonuevoa.jpg", ImreadModes.Grayscale);
 
         public static Mat CameraObjectDetectionB(Mat image_rgb, Mat image_binarizada)
         {
@@ -108,7 +108,7 @@ namespace prueba
         {
             try
             {
-                framesProcesados++;
+               // framesProcesados++;
                 Referencias referenciaB = NReferencia.ObtenerReferenciaB(IdReceta)[0];
                 //
                 int umbral_threshold = referenciaB.Umbral_Threshold;
