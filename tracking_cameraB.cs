@@ -162,8 +162,8 @@ namespace prueba
             Cv2.PutText(image_rgb, Convert.ToString(contador), new Point(x_umbral + 30, x_umbral / 2), HersheyFonts.Italic, 1.2, Scalar.White);
             Cv2.PutText(image_rgb, Convert.ToString(auxcontador1), new Point(x_umbral1 + 10, 150 / 2), HersheyFonts.Italic, 1.2, Scalar.White);
             Cv2.PutText(image_rgb, Convert.ToString(auxcontador3), new Point(x_umbral2 + 10, 150 / 2), HersheyFonts.Italic, 1.2, Scalar.White);
-            Cv2.PutText(image_rgb, Convert.ToString(mainB.framesProcesados), new Point(10, 500), HersheyFonts.Italic, 1.2, Scalar.White);
-
+            Cv2.PutText(image_rgb, Convert.ToString(objetos.Count()), new Point(10, 500), HersheyFonts.Italic, 1.2, Scalar.White);
+            //mainB.framesProcesados
             int counter = 0;
             int count_obj = 0;
             if (Indexes.Length > 0)
@@ -232,7 +232,7 @@ namespace prueba
                             dis = Convert.ToInt16(dis);
 
 
-                            if (dis >= dist_umbral_below && dis < dist_umbral_above /*&& !lista_aux.Contains(idObjeto)*/ && !mismoobjeto /*&& contourIndex == objetoevaluar*/ && desplazamientoX >= 0)
+                            if (dis >= dist_umbral_below && dis < dist_umbral_above && !lista_aux.Contains(idObjeto) && !mismoobjeto /*&& contourIndex == objetoevaluar*/ && desplazamientoX >= 0)
                             {
                                 if (img_morfologica_display == 1)
                                 {
@@ -281,7 +281,7 @@ namespace prueba
                                 objetos[idObjeto] = (posXActual, posYActual, done, done1, done2);
                                 objetosNuevos[idObjeto] = (posXActual, posYActual, done, done1, done2);
                                 mismoobjeto = true;
-                                //lista_aux.Add(idObjeto);
+                                lista_aux.Add(idObjeto);
                                 break;
 
 
@@ -306,7 +306,7 @@ namespace prueba
 
                         //}
 
-                        if (!mismoobjeto && posXActual < x_umbral1)
+                        if (!mismoobjeto )
                         {
                             objetosNuevos.Add(id_cont, (posXActual, posYActual, 0, 0, 0));
                             id_cont++;

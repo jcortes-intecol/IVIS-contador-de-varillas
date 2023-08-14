@@ -73,7 +73,7 @@ namespace Camara.Modbus.Servicio.control
             //*************** determinar el color de la imagenes en el procesador 
             processor.SetColorProcessing(ColorProcessingAlgorithm.HQ_LINEAR);
             NParametros.ActualizarParametro("StateCameraB", "Int", Convert.ToString(0));
-            StateCamera = true;
+            StateCamera = false;
 
             Queue<Bitmap> acquisitionBuffer = new Queue<Bitmap>();
             while (!PeticionPlc.IsCancellationRequested)
@@ -167,7 +167,7 @@ namespace Camara.Modbus.Servicio.control
                 catch (SpinnakerException ex)
                 {
                     Console.WriteLine("Error: {0}", ex.Message);
-                    
+                    StateCamera = true;
                 }
 
             }
@@ -241,7 +241,7 @@ namespace Camara.Modbus.Servicio.control
             catch (SpinnakerException ex)
             {
                 Console.WriteLine("Error: {0}", ex.Message);
-               
+                StateCamera = true;
 
                 result = -1;
             }
@@ -365,11 +365,11 @@ namespace Camara.Modbus.Servicio.control
                 try
                 {
                     result = result | RunSingleCameraB(cam1, ParametroModbus, serialCam1);
-                    StateCamera = true;
+                    StateCamera = false;
                 }
                 catch (SpinnakerException ex)
                 {
-                    StateCamera = false;
+                    StateCamera = true;
                     NParametros.ActualizarParametro("StateCameraB", "Int", Convert.ToString(1));
 
                     Console.WriteLine("Error: {0}", ex.Message);
@@ -379,7 +379,7 @@ namespace Camara.Modbus.Servicio.control
             }
             else
             {
-                StateCamera = false;
+                StateCamera = true;
                 NParametros.ActualizarParametro("StateCameraB", "Int", Convert.ToString(1));
 
             }

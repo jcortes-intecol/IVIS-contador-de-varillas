@@ -345,7 +345,7 @@ namespace TRACKING
                 try
                 {
                     result = result | RunSingleCameraA(cam, ParametroModbus, serialCam1);
-                    StateCamera = true;
+                    StateCamera = false;
                 }
 
                 catch (SpinnakerException ex)
