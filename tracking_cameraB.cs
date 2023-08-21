@@ -232,7 +232,7 @@ namespace prueba
                             dis = Convert.ToInt16(dis);
 
 
-                            if (dis >= dist_umbral_below && dis < dist_umbral_above && !lista_aux.Contains(idObjeto) && !mismoobjeto /*&& contourIndex == objetoevaluar*/ && desplazamientoX >= 0)
+                            if (dis >= dist_umbral_below && dis < dist_umbral_above && !lista_aux.Contains(idObjeto) && !mismoobjeto /*&& contourIndex == objetoevaluar*/ && desplazamientoX >= -10)
                             {
                                 if (img_morfologica_display == 1)
                                 {
@@ -243,7 +243,7 @@ namespace prueba
 
                                 //Cv2.Rectangle(image_rgb, new Point(x, y), new Point(x + w, y + h), Scalar.Red, 2);
                                 Cv2.DrawContours(image_rgb, sortedContours, contourIndex, Scalar.DarkGreen, 2);
-                                if (!pararconteo)
+                                if (!pararconteo) //***********************************
                                 {
 
                                     if (done == 0) //linea a 0.3
@@ -274,7 +274,7 @@ namespace prueba
                                         contador = auxcontador1;
                                     }
                                 }
-                                else
+                                else //*****************************
                                 {
                                     Cv2.PutText(image_rgb, "Conteo pausado", new Point(50, 300), HersheyFonts.Italic, 2, new Scalar(255, 0, 0), 5);
                                 }
