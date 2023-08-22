@@ -46,7 +46,7 @@ namespace prueba
                     if (stateConnection == 0)
                     {
                         BanderaReConection = true;
-                        BanderaConection = false;
+                        //BanderaConection = false;
                         while (BanderaReConection)
                         {
 
@@ -74,7 +74,7 @@ namespace prueba
                                 Client.Disconnect();
                                 BanderaReConection = false;
 
-                                Console.WriteLine("error " + condition.ToString("x"));
+                                Console.WriteLine("lectura db error " + condition.ToString("x"));
                                 break;
                             }
                             NParametros.ActualizarParametro("StatePLC", "Int", Convert.ToString(condition));
@@ -143,11 +143,12 @@ namespace prueba
                                 //    AuxB++;
                                 //}************************************
                                 tracking_cameraB.PLCimg_morfologica_display = S7.GetBitAt(buffer, 0, 6);
-                                tracking_cameraB.pararconteo = S7.GetBitAt(buffer, 1, 5);
+                                tracking_cameraB.pararconteo = S7.GetBitAt(buffer, 1, 3);
                                 bool SeparationDoneB = S7.GetBitAt(buffer, 0, 7);// separacion echa 
+                                //Console.WriteLine(Convert.ToString(tracking_cameraB.pararconteo));
                                 if (SeparationDoneB && reinicarContB == 0)
                                 {
-
+                                    //Console.WriteLine(Convert.ToString(tracking_cameraB.pararconteo));
                                     NGuardarContador.GuardarContadorB(mainB.IdReceta, Convert.ToString(tracking_cameraB.contador));
                                     tracking_cameraB.contador = 0;
                                     tracking_cameraB.auxcontador1 = 0;
@@ -226,7 +227,7 @@ namespace prueba
                                 break;
                             }
 
-                            Thread.Sleep(150);
+                            Thread.Sleep(100);//150 valor de trabajo; 3:17 pm esta a 120
 
                             //temporizador.Stop();
 
