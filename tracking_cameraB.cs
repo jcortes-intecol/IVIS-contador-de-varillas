@@ -34,6 +34,9 @@ namespace prueba
         public static int auxcontador3 = 0;//se adiciono
         public static bool pararconteo;
 
+        ////Lista donde se van a guardar las coordenadas.
+        //public static List<(int x, int y)> coordenadas = new List<(int, int)>();
+
         //public static Dictionary<int, (int, int, int)> objetos = new Dictionary<int, (int, int, int)>();
         public static Dictionary<int, (int, int, int, int, int)> objetos = new Dictionary<int, (int, int, int, int, int)>();//se adiciono
                                                                                                                             //public static List<int> objetosAEliminar = new List<int>(objetos.Keys);
@@ -192,6 +195,10 @@ namespace prueba
                         var moments = Cv2.Moments(contour);
                         posXActual = (int)(moments.M10 / moments.M00);
                         posYActual = (int)(moments.M01 / moments.M00);
+
+                        ////se guardan las posiciones de cada varillas.
+                        //coordenadas.Add((posXActual, posYActual));
+
                         if (img_morfologica_display == 1)
                         {
                             Cv2.Circle(image_binarizada_rgb, new Point(posXActual, posYActual), 2, new Scalar(0, 0, 255));
@@ -230,7 +237,6 @@ namespace prueba
                             var dis = Math.Sqrt(Math.Pow(posXActual - posXanterior, 2) + Math.Pow(posYActual - posYanterior, 2));
 
                             dis = Convert.ToInt16(dis);
-
 
                             if (dis >= dist_umbral_below && dis < dist_umbral_above /*&& !lista_aux.Contains(idObjeto)*/ && !mismoobjeto /*&& contourIndex == objetoevaluar*/ && desplazamientoX >= 0)
                             {
