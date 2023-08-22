@@ -69,7 +69,7 @@ namespace prueba
                             int watchdog = Client.DBWrite(303, 0, buffer303.Length, buffer303);
                             //******************************************************************************
 
-                            if (condition != 0)
+                            if (condition != 0 || watchdog != 0 || db303 != 0)
                             {
                                 Client.Disconnect();
                                 BanderaReConection = false;
@@ -143,7 +143,7 @@ namespace prueba
                                 //    AuxB++;
                                 //}************************************
                                 tracking_cameraB.PLCimg_morfologica_display = S7.GetBitAt(buffer, 0, 6);
-                                tracking_cameraB.pararconteo = S7.GetBitAt(buffer, 1, 3);
+                                tracking_cameraB.pararconteo = S7.GetBitAt(buffer, 1, 5);
                                 bool SeparationDoneB = S7.GetBitAt(buffer, 0, 7);// separacion echa 
                                 if (SeparationDoneB && reinicarContB == 0)
                                 {
@@ -246,6 +246,8 @@ namespace prueba
                 }
                 catch
                 {
+
+  
                     int Rack = NParametros.RackPLC;
                     int Slot = NParametros.slotPLC;
                     string IPPlc = NParametros.IPPlc;
