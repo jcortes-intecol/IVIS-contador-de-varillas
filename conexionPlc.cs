@@ -34,7 +34,8 @@ namespace prueba
                 
                 try
                 {
-                    
+                    //      reinicarContA = 1;
+                    //      reinicarContB = 1;
                     Client = new S7Client();
 
                     int Rack = NParametros.RackPLC;
@@ -146,7 +147,7 @@ namespace prueba
                                 tracking_cameraB.pararconteo = S7.GetBitAt(buffer, 1, 3);
                                 bool SeparationDoneB = S7.GetBitAt(buffer, 0, 7);// separacion echa 
                                 //Console.WriteLine(Convert.ToString(tracking_cameraB.pararconteo));
-                                if (SeparationDoneB && reinicarContB == 0)
+                                if (SeparationDoneB==true && reinicarContB == 0)
                                 {
                                     //Console.WriteLine(Convert.ToString(tracking_cameraB.pararconteo));
                                     NGuardarContador.GuardarContadorB(mainB.IdReceta, Convert.ToString(tracking_cameraB.contador));
@@ -156,6 +157,10 @@ namespace prueba
                                     tracking_cameraB.auxcontador3 = 0;
                                     mainB.framesProcesados = 0;
                                     reinicarContB++;
+
+                                    //S7.SetBitAt(buffer, 0, 7, false);
+
+                                    //int contrest = Client.DBWrite(300, 0, buffer.Length, buffer);
                                 }
                                 if (SeparationDoneB == false) { reinicarContB = 0; }
                                 ///<summary>
@@ -213,6 +218,7 @@ namespace prueba
                             if (Write1 != 0)
                             {
                                 BanderaReConection = false;
+                                Console.WriteLine("fallo la escritura en db linea A");
                                 Client.Disconnect();
                                 break;
                             }
@@ -223,6 +229,7 @@ namespace prueba
                             if (Write2 != 0)
                             {
                                 BanderaReConection = false;
+                                Console.WriteLine("fallo la escritura en db linea B");
                                 Client.Disconnect();
                                 break;
                             }

@@ -57,7 +57,7 @@ namespace prueba
             OpenCvSharp.Point[][] contornos_actual;
             HierarchyIndex[] Indexes_actual;
 
-            Cv2.FindContours(image_binarizada, out contornos_actual, out Indexes_actual, RetrievalModes.CComp, method: ContourApproximationModes.ApproxSimple);
+            Cv2.FindContours(image_binarizada, out contornos_actual, out Indexes_actual, RetrievalModes.External, method: ContourApproximationModes.ApproxSimple);
             Mat image_binarizada_rgb = new Mat();
             Cv2.CvtColor(image_binarizada, image_binarizada_rgb, ColorConversionCodes.GRAY2BGR);
             image_rgb = tracking_cameraB.TrackerObjecCameraB(image_rgb, image_binarizada_rgb, contornos_actual, Indexes_actual);
@@ -178,9 +178,14 @@ namespace prueba
                 //{
                 //    Cv2.Pow(imageFloat, 1.3, dst1);
                 //}
-
-                Cv2.Pow(imageFloat, 1.3, dst1);
-
+                if (IdReceta != 9 || IdReceta != 6)
+                {
+                    Cv2.Pow(imageFloat, 1.3, dst1);
+                }
+                if (IdReceta == 9 || IdReceta == 6)
+                {
+                    Cv2.Pow(imageFloat, 1.4, dst1);
+                }
                 dst1.ConvertTo(dst1, MatType.CV_8UC1);
 
                 //Mat mask = new Mat();
@@ -195,7 +200,7 @@ namespace prueba
                 if (IdReceta == 5 || IdReceta >= 9)
                 {
                     Blocksize = 127;
-                    Double = 0;
+                    Double = 2;
                 }
                 if (IdReceta == 6)
                 {
@@ -205,7 +210,7 @@ namespace prueba
                 //Cambios 1 1/8 jairo (30 de junio)
                 if (IdReceta == 11 || IdReceta == 12 || IdReceta == 8)
                 {
-                    Blocksize = 97;
+                    Blocksize = 127;
                     Double = 2;
                 }
                 //cambios para habilitar el adaptative (jairo 27 de junio)
