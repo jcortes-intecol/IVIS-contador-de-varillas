@@ -16,6 +16,7 @@ using TRACKING;
 using TRACKING.Negocio;
 using TRACKING.Entity;
 using TRACKING.Data;
+using IntecolWCS.logger.Service;
 
 namespace prueba
 {
@@ -263,6 +264,9 @@ namespace prueba
             Console.WriteLine("*******************IVIS-COUNTER**************************************");
             Console.WriteLine("DESARROLLADO POR INTECOL SAS");
 
+
+            ConfigurationLogger.ConfigurationLooger();
+            LoggerFacade.doLog(LoggerFacade.NivelLog.INFO, "prueba de Logger");
             MeasureCameraB = new Thread(() => ControlCameraB.MainCameraB(NParametros.SerialCamaraB, cancelationTokenCloseCameraB));
             MeasureCameraB.Start();
             MeasureCameraA = new Thread(() => ControlCamaraA.MainCameraA(NParametros.SerialCamaraA, cancelationTokenCloseCameraA));
