@@ -18,10 +18,14 @@
     <PackageReference Include="OpenCvSharp4.Windows" Version="4.7.0.20230115" />
     <PackageReference Include="Sharp7" Version="1.1.82" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="System.Diagnostics.EventLog" Version="7.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="IntecolWCS.logger">
+      <HintPath>..\IntecolWCS.logger.dll</HintPath>
+    </Reference>
     <Reference Include="OpenCvSharp">
       <HintPath>bin\OpenCvSharp.dll</HintPath>
     </Reference>

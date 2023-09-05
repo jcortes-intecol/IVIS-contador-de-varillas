@@ -266,7 +266,7 @@ namespace prueba
 
 
             ConfigurationLogger.ConfigurationLooger();
-            LoggerFacade.doLog(LoggerFacade.NivelLog.INFO, "prueba de Logger");
+            //LoggerFacade.doLog(LoggerFacade.NivelLog.INFO, "prueba de Logger");
             MeasureCameraB = new Thread(() => ControlCameraB.MainCameraB(NParametros.SerialCamaraB, cancelationTokenCloseCameraB));
             MeasureCameraB.Start();
             MeasureCameraA = new Thread(() => ControlCamaraA.MainCameraA(NParametros.SerialCamaraA, cancelationTokenCloseCameraA));
