@@ -33,6 +33,7 @@ namespace prueba
         public static int auxcontador2 = 0;//se adiciono
         public static int auxcontador3 = 0;//se adiciono
         public static bool pararconteo;
+        public static bool elimine;
 
         ////Lista donde se van a guardar las coordenadas.
         //public static List<(int x, int y)> coordenadas = new List<(int, int)>();
@@ -171,9 +172,9 @@ namespace prueba
             int count_obj = 0;
             if (Indexes.Length > 0)
             {
+                int cantidadContornos = sortedContours.Count();
 
-
-                for (var contourIndex = 0; contourIndex < sortedContours.Count(); contourIndex++)//para recorer B y A
+                for (var contourIndex = 0; contourIndex < cantidadContornos; contourIndex++)//para recorer B y A
                 {
                     var contour = sortedContours.ElementAt(contourIndex);
 
@@ -256,23 +257,23 @@ namespace prueba
                                     if (done == 0) //linea a 0.3
                                     {
 
-                                        done = Count(posXanterior, posXActual, x_umbral1, w, h, width_umbral, height_humbral, auxcontador1).Item1;
-                                        auxcontador1 = Count(posXanterior, posXActual, x_umbral1, w, h, width_umbral, height_humbral, auxcontador1).Item2;
+                                        done = Count(cantidadContornos, posXanterior, posXActual, x_umbral1, w, h, width_umbral, height_humbral, auxcontador1).Item1;
+                                        auxcontador1 = Count(cantidadContornos, posXanterior, posXActual, x_umbral1, w, h, width_umbral, height_humbral, auxcontador1).Item2;
                                     }
 
                                     if (done1 == 0)//Linea a 0.5
                                     {
 
-                                        done1 = Count(posXanterior, posXActual, x_umbral, w, h, width_umbral, height_humbral, auxcontador2).Item1;
-                                        auxcontador2 = Count(posXanterior, posXActual, x_umbral, w, h, width_umbral, height_humbral, auxcontador2).Item2;
+                                        done1 = Count(cantidadContornos, posXanterior, posXActual, x_umbral, w, h, width_umbral, height_humbral, auxcontador2).Item1;
+                                        auxcontador2 = Count(cantidadContornos, posXanterior, posXActual, x_umbral, w, h, width_umbral, height_humbral, auxcontador2).Item2;
                                         contador = auxcontador2;
                                     }
 
                                     if (done2 == 0)//Linea a 0.7
                                     {
 
-                                        done2 = Count(posXanterior, posXActual, x_umbral2, w, h, width_umbral, height_humbral, auxcontador3).Item1;
-                                        auxcontador3 = Count(posXanterior, posXActual, x_umbral2, w, h, width_umbral, height_humbral, auxcontador3).Item2;
+                                        done2 = Count(cantidadContornos, posXanterior, posXActual, x_umbral2, w, h, width_umbral, height_humbral, auxcontador3).Item1;
+                                        auxcontador3 = Count(cantidadContornos, posXanterior, posXActual, x_umbral2, w, h, width_umbral, height_humbral, auxcontador3).Item2;
 
                                     }
 
@@ -368,7 +369,7 @@ namespace prueba
                 if (primerElem.Value.Item1 >= lineaEliminar)
                 {
                     objetos.Remove(primerElem.Key);
-
+                    elimine = true;
                 }
 
             }
@@ -416,7 +417,7 @@ namespace prueba
         //    return (NewDone);
         //}
 
-        public static (int, int) Count(double CoordenadasXAnteriores, double CoordenadasXActuales, int x_umbral, int width, int height, int widht_umbral, int height_umbral, int contaFuncion)
+        public static (int, int) Count(int cantidadContornos, double CoordenadasXAnteriores, double CoordenadasXActuales, int x_umbral, int width, int height, int widht_umbral, int height_umbral, int contaFuncion)
         {
 
             int NewDone1;
@@ -432,49 +433,28 @@ namespace prueba
                 {
                     contaFuncion++;
                 }
-            }
-            else
-            {
-                NewDone1 = 0;
 
-            }
-            return (NewDone1, contaFuncion);
-        }
-        //===============================================================================================================================================
-        public static (int, int) CountArea(double CoordenadasXAnteriores, double CoordenadasXActuales, int x_umbral, int width, int height, int widht_umbral, int height_umbral, int contaFuncion, double area)
-        {
+                int nuevosContornos = objetos.Count() - cantidadContornos;
 
-            int NewDone1;
+                if (elimine)
+                {
+                    nuevosContornos++;
+                }
 
-            ////*******************************segunda linea ***********************************************
-            if (CoordenadasXActuales >= x_umbral && CoordenadasXAnteriores < x_umbral)
-            {
-
-                NewDone1 = 1;
-
-                contaFuncion++;
-                //if (width * height >= widht_umbral * height_umbral)
-                //{
-                //    contaFuncion++;
-                //}
-                if (area >= 2300)
+                if (cantidadContornos > objetos.Count() && cantidadContornos - nuevosContornos < 0)
                 {
                     contaFuncion++;
                 }
-
             }
             else
             {
                 NewDone1 = 0;
 
             }
-
             return (NewDone1, contaFuncion);
         }
-        //===============================================================================================================================================
+        
     }
-
-
 
 }
 
