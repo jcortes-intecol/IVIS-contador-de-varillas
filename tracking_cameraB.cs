@@ -452,6 +452,7 @@ namespace prueba
                 if (elimine)
                 {
                     eliminar++;
+                    elimine = false;
                 }
                 int estadoInicial = objetos.Count() - eliminar;
                 int estadoFinal = cantidadContornos - contadorEntrada;
