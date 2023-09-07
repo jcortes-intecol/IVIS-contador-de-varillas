@@ -35,6 +35,9 @@ namespace prueba
         public static bool pararconteo;
         public static bool elimine;
 
+        public static int contadorEntrada = 0;
+        public static Boolean banderaVerificador = false;
+
         ////Lista donde se van a guardar las coordenadas.
         //public static List<(int x, int y)> coordenadas = new List<(int, int)>();
 
@@ -63,6 +66,7 @@ namespace prueba
             //int img_morfologica_display = NParametros.DebugLiveCameraB;
             //  bool img_morfologica_display = true;
             var lista_aux = new List<int>();
+            contadorEntrada = 0;
             if (Contornos.Length == 0)
             {
                 objetos.Clear();
@@ -173,12 +177,16 @@ namespace prueba
             if (Indexes.Length > 0)
             {
                 int cantidadContornos = sortedContours.Count();
-
+                int verificador = 0;
+                banderaVerificador = false;
                 for (var contourIndex = 0; contourIndex < cantidadContornos; contourIndex++)//para recorer B y A
                 {
                     var contour = sortedContours.ElementAt(contourIndex);
-
-
+                    verificador++;
+                    if (verificador == cantidadContornos)
+                    {
+                        banderaVerificador = true;
+                    }
                     //var contour = Contornos[contourIndex];
                     var Area = Cv2.ContourArea(contour);
                     Mat Rgb_ig = image_rgb;
@@ -199,6 +207,11 @@ namespace prueba
 
                         ////se guardan las posiciones de cada varillas.
                         //coordenadas.Add((posXActual, posYActual));
+
+                        if (posXActual < 100)
+                        {
+                            contadorEntrada++;
+                        }
 
                         if (img_morfologica_display == 1)
                         {
@@ -434,16 +447,36 @@ namespace prueba
                     contaFuncion++;
                 }
 
-                int nuevosContornos = objetos.Count() - cantidadContornos;
+                int eliminar = 0;
 
                 if (elimine)
                 {
-                    nuevosContornos++;
+                    eliminar++;
                 }
-
-                if (cantidadContornos > objetos.Count() && cantidadContornos - nuevosContornos < 0)
+                int estadoInicial = objetos.Count() - eliminar;
+                int estadoFinal = cantidadContornos - contadorEntrada;
+                if (estadoInicial > estadoFinal && banderaVerificador)
                 {
+                    Console.WriteLine("Se juntaron");
+                    Console.WriteLine(contadorEntrada);
+                    Console.WriteLine(estadoFinal);
+                    Console.WriteLine(estadoInicial);
                     contaFuncion++;
+                }
+                else if (estadoInicial < estadoFinal && banderaVerificador)
+                {
+                    Console.WriteLine("Se separaron");
+                    Console.WriteLine(contadorEntrada);
+                    Console.WriteLine(estadoFinal);
+                    Console.WriteLine(estadoInicial);
+                    contaFuncion++;
+                }
+                else
+                {
+                    Console.WriteLine("Iguales o no se han visto todos los contornos");
+                    Console.WriteLine(contadorEntrada);
+                    Console.WriteLine(estadoFinal);
+                    Console.WriteLine(estadoInicial);
                 }
             }
             else
