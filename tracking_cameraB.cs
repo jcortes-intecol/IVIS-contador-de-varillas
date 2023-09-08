@@ -252,6 +252,7 @@ namespace prueba
 
                             dis = Convert.ToInt16(dis);
 
+                            
 
                             if (dis >= dist_umbral_below && dis < dist_umbral_above && !lista_aux.Contains(idObjeto) && !mismoobjeto /*&& contourIndex == objetoevaluar*/ && desplazamientoX >= -10)
                             {
@@ -266,6 +267,10 @@ namespace prueba
                                 Cv2.DrawContours(image_rgb, sortedContours, contourIndex, Scalar.DarkGreen, 2);
                                 if (!pararconteo) //***********************************
                                 {
+                                    if (posXActual == posXanterior)
+                                    {
+                                        continue;
+                                    }
 
                                     if (done == 0) //linea a 0.3
                                     {
