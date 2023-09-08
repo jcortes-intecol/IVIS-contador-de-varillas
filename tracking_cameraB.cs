@@ -269,14 +269,12 @@ namespace prueba
 
                                     if (done == 0) //linea a 0.3
                                     {
-
                                         done = Count(cantidadContornos, posXanterior, posXActual, x_umbral1, w, h, width_umbral, height_humbral, auxcontador1).Item1;
                                         auxcontador1 = Count(cantidadContornos, posXanterior, posXActual, x_umbral1, w, h, width_umbral, height_humbral, auxcontador1).Item2;
                                     }
 
                                     if (done1 == 0)//Linea a 0.5
                                     {
-
                                         done1 = Count(cantidadContornos, posXanterior, posXActual, x_umbral, w, h, width_umbral, height_humbral, auxcontador2).Item1;
                                         auxcontador2 = Count(cantidadContornos, posXanterior, posXActual, x_umbral, w, h, width_umbral, height_humbral, auxcontador2).Item2;
                                         contador = auxcontador2;
@@ -284,15 +282,143 @@ namespace prueba
 
                                     if (done2 == 0)//Linea a 0.7
                                     {
-
                                         done2 = Count(cantidadContornos, posXanterior, posXActual, x_umbral2, w, h, width_umbral, height_humbral, auxcontador3).Item1;
                                         auxcontador3 = Count(cantidadContornos, posXanterior, posXActual, x_umbral2, w, h, width_umbral, height_humbral, auxcontador3).Item2;
-
                                     }
 
                                     if (mainB.IdReceta >= 10)
                                     {
                                         contador = auxcontador1;
+                                    }
+
+                                    if((w> width_umbral || h>height_humbral))
+                                    {
+                                        //Comenzo antes de la primera Linea
+                                        if(posXanterior < x_umbral1)
+                                        {
+                                            //Paso la primera linea
+                                            if (x_umbral1 < posXActual && posXActual < x_umbral)
+                                            {
+                                                if (elimine)
+                                                {
+                                                    if(VerificarUnion(1, cantidadContornos, 1))
+                                                    {
+                                                        auxcontador1++;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if(VerificarUnion(0, cantidadContornos, 1))
+                                                    {
+                                                        auxcontador1++;
+                                                    }
+                                                }
+                                            }
+                                            //Paso la primera y segunda linea
+                                            if (x_umbral < posXActual && posXActual < x_umbral2)
+                                            {
+                                                if (elimine)
+                                                {
+                                                    if (VerificarUnion(1, cantidadContornos, 1))
+                                                    {
+                                                        auxcontador1++;
+                                                        auxcontador2++;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (VerificarUnion(0, cantidadContornos, 1))
+                                                    {
+                                                        auxcontador1++;
+                                                        auxcontador2++;
+                                                    }
+                                                }
+                                            }
+                                            if (x_umbral2 < posXActual)
+                                            {
+                                                if (elimine)
+                                                {
+                                                    if (VerificarUnion(1, cantidadContornos, 1))
+                                                    {
+                                                        auxcontador1++;
+                                                        auxcontador3++;
+                                                        auxcontador2++;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (VerificarUnion(0, cantidadContornos, 1))
+                                                    {
+                                                        auxcontador1++;
+                                                        auxcontador3++;
+                                                        auxcontador2++;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        //comenzo antes de la segunda linea
+                                        else if (posXanterior < x_umbral)
+                                        {
+                                            //Esta antes de la 3ra linea
+                                            if (x_umbral < posXActual && posXActual < x_umbral2)
+                                            {
+                                                if (elimine)
+                                                {
+                                                    if (VerificarUnion(1, cantidadContornos, 1))
+                                                    {
+                                                        auxcontador2++;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (VerificarUnion(0, cantidadContornos, 1))
+                                                    {
+                                                        auxcontador2++;
+                                                    }
+                                                }
+                                            }
+                                            //Esta despues de la 3ra linea
+                                            if (x_umbral2 < posXActual)
+                                            {
+                                                if (elimine)
+                                                {
+                                                    if (VerificarUnion(1, cantidadContornos, 1))
+                                                    {
+                                                        auxcontador3++;
+                                                        auxcontador2++;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (VerificarUnion(0, cantidadContornos, 1))
+                                                    {
+                                                        auxcontador3++;
+                                                        auxcontador2++;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else if (posXanterior < x_umbral2)
+                                        {
+
+                                            if (x_umbral2 < posXActual)
+                                            {
+                                                if (elimine)
+                                                {
+                                                    if (VerificarUnion(1, cantidadContornos, 1))
+                                                    {
+                                                        auxcontador3++;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (VerificarUnion(0, cantidadContornos, 1))
+                                                    {
+                                                        auxcontador3++;
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                                 else //*****************************
@@ -403,32 +529,6 @@ namespace prueba
             //Console.WriteLine(milisegundos.ToString());
             return image_rgb;
         }
-        //public static int Count(double CoordenadasXAnteriores, double CoordenadasXActuales, int x_umbral, int width, int height, int widht_umbral, int height_umbral)
-        //{
-        //    int NewDone;
-
-
-        //    if (CoordenadasXActuales >= x_umbral && CoordenadasXAnteriores < x_umbral)
-        //    {
-
-        //        NewDone = 1;
-
-        //        contador++;
-        //        if (width >= widht_umbral || height > height_umbral)
-        //        {
-        //            contador++;
-        //        }
-        //    }
-
-        //    else
-        //    {
-        //        NewDone = 0;
-
-        //    }
-
-
-        //    return (NewDone);
-        //}
 
         public static (int, int) Count(int cantidadContornos, double CoordenadasXAnteriores, double CoordenadasXActuales, int x_umbral, int width, int height, int widht_umbral, int height_umbral, int contaFuncion)
         {
@@ -454,22 +554,17 @@ namespace prueba
                     eliminar++;
                     elimine = false;
                 }
+
                 int estadoInicial = objetos.Count() - eliminar;
                 int estadoFinal = cantidadContornos - contadorEntrada;
-                if (estadoInicial > estadoFinal && banderaVerificador)
+
+                if (VerificarUnion(estadoInicial, estadoFinal))
                 {
-                    Console.WriteLine("Se juntaron");
-                    Console.WriteLine(contadorEntrada);
-                    Console.WriteLine(estadoFinal);
-                    Console.WriteLine(estadoInicial);
                     contaFuncion++;
                 }
-                else if (estadoInicial < estadoFinal && banderaVerificador)
+
+                if (VerificarSeparacion(estadoInicial, estadoFinal))
                 {
-                    Console.WriteLine("Se separaron");
-                    Console.WriteLine(contadorEntrada);
-                    Console.WriteLine(estadoFinal);
-                    Console.WriteLine(estadoInicial);
                     contaFuncion++;
                 }
                 else
@@ -483,9 +578,50 @@ namespace prueba
             else
             {
                 NewDone1 = 0;
-
             }
             return (NewDone1, contaFuncion);
+        }
+
+        public static bool VerificarUnion(int estadoInicial, int estadoFinal)
+        {
+            if (estadoInicial > estadoFinal && banderaVerificador)
+            {
+                Console.WriteLine("Se juntaron");
+                Console.WriteLine(contadorEntrada);
+                Console.WriteLine(estadoFinal);
+                Console.WriteLine(estadoInicial);
+                return true;
+            }
+            return false;
+        }
+
+        public static bool VerificarUnion(int eliminar, int cantidadContornos, int aux)
+        {
+            int estadoInicial = objetos.Count() - eliminar;
+            int estadoFinal = cantidadContornos - contadorEntrada;
+            if (estadoInicial > estadoFinal && banderaVerificador)
+            {
+                Console.WriteLine("Se juntaron");
+                Console.WriteLine(contadorEntrada);
+                Console.WriteLine(estadoFinal);
+                Console.WriteLine(estadoInicial);
+                return true;
+            }
+            return false;
+        }
+
+        public static bool VerificarSeparacion(int estadoInicial, int estadoFinal)
+        {
+            
+            if (estadoInicial < estadoFinal && banderaVerificador)
+            {
+                Console.WriteLine("Se separaron");
+                Console.WriteLine(contadorEntrada);
+                Console.WriteLine(estadoFinal);
+                Console.WriteLine(estadoInicial);
+                return true;
+            }
+            return false;
         }
         
     }
