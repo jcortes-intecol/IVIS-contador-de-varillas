@@ -323,6 +323,7 @@ namespace prueba
                                                     {
                                                         auxcontador1++;
                                                         auxcontador2++;
+                                                        contador = auxcontador2;
                                                     }
                                                 }
                                                 else
@@ -331,6 +332,7 @@ namespace prueba
                                                     {
                                                         auxcontador1++;
                                                         auxcontador2++;
+                                                        contador = auxcontador2;
                                                     }
                                                 }
                                             }
@@ -343,6 +345,7 @@ namespace prueba
                                                         auxcontador1++;
                                                         auxcontador3++;
                                                         auxcontador2++;
+                                                        contador = auxcontador2;
                                                     }
                                                 }
                                                 else
@@ -352,6 +355,7 @@ namespace prueba
                                                         auxcontador1++;
                                                         auxcontador3++;
                                                         auxcontador2++;
+                                                        contador = auxcontador2;
                                                     }
                                                 }
                                             }
@@ -367,6 +371,7 @@ namespace prueba
                                                     if (VerificarUnion(1, cantidadContornos, 1))
                                                     {
                                                         auxcontador2++;
+                                                        contador = auxcontador2;
                                                     }
                                                 }
                                                 else
@@ -374,6 +379,7 @@ namespace prueba
                                                     if (VerificarUnion(0, cantidadContornos, 1))
                                                     {
                                                         auxcontador2++;
+                                                        contador = auxcontador2;
                                                     }
                                                 }
                                             }
@@ -386,6 +392,7 @@ namespace prueba
                                                     {
                                                         auxcontador3++;
                                                         auxcontador2++;
+                                                        contador = auxcontador2;
                                                     }
                                                 }
                                                 else
@@ -394,6 +401,7 @@ namespace prueba
                                                     {
                                                         auxcontador3++;
                                                         auxcontador2++;
+                                                        contador = auxcontador2;
                                                     }
                                                 }
                                             }
