@@ -302,7 +302,7 @@ namespace prueba
 
                                 //Cv2.Rectangle(image_rgb, new Point(x, y), new Point(x + w, y + h), Scalar.Red, 2);
                                 Cv2.DrawContours(image_rgb, sortedContours, contourIndex, Scalar.DarkGreen, 2);
-                                if (!pararconteo) //***********************************
+                                if (!pararconteo || dis < 3) //***********************************
                                 {
                                     if (posXActual == posXanterior)
                                     {
