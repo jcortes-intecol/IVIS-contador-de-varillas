@@ -173,7 +173,7 @@ namespace prueba
             Cv2.PutText(image_rgb, Convert.ToString(contador), new Point(x_umbral + 30, x_umbral / 2), HersheyFonts.Italic, 1.2, Scalar.White);
             Cv2.PutText(image_rgb, Convert.ToString(auxcontador1), new Point(x_umbral1 + 10, 150 / 2), HersheyFonts.Italic, 1.2, Scalar.White);
             Cv2.PutText(image_rgb, Convert.ToString(auxcontador3), new Point(x_umbral2 + 10, 150 / 2), HersheyFonts.Italic, 1.2, Scalar.White);
-            Cv2.PutText(image_rgb, Convert.ToString(objetos.Count()), new Point(10, 500), HersheyFonts.Italic, 1.2, Scalar.White);
+            //Cv2.PutText(image_rgb, Convert.ToString(objetos.Count()), new Point(10, 500), HersheyFonts.Italic, 1.2, Scalar.White);
             //mainB.framesProcesados
             int counter = 0;
             int count_obj = 0;
@@ -244,20 +244,16 @@ namespace prueba
                             var primerElemob = objetos.First();
                             if ((PosicionContornoAnt > PosicionContorno && objetos.Count() > sortedContours.Count()))
                             {
-                                Console.WriteLine("borre por contornos " + Convert.ToString(primerElemob));
                                 objetos.Remove(primerElemob.Key);
                                 int auxiliarSalida = 0;//sirve para que a lo sumo busque 3 varillas, mas de eso no ocurre.
                                 foreach (var data in objetos)
                                 {
-                                    Console.WriteLine("Entre al foreach de eliminar varios");
                                     var value = data.Value;
                                     var idObjeto = data.Key;
                                     auxiliarSalida += 1;
                                     posXanterior = value.Item1;
-                                    Console.WriteLine(posXanterior.ToString(), PosicionContorno.ToString());
                                     if ((PosicionContorno - posXanterior) < 5)
                                     {
-                                        Console.WriteLine("borre por contornos extra" + Convert.ToString(idObjeto));
                                         objetos.Remove(idObjeto);
                                     }
                                     if (auxiliarSalida == 3)
@@ -270,7 +266,6 @@ namespace prueba
                         }
                         Cv2.PutText(image_rgb, Convert.ToString(objetos.Count()), new Point(10, 500), HersheyFonts.Italic, 1, Scalar.White);
                         Cv2.PutText(image_rgb, Convert.ToString(sortedContours.Count()), new Point(30, 500), HersheyFonts.Italic, 1, Scalar.White);
-                        //Console.WriteLine("contorno anterior: " + PosicionContornoAnt + " contorno actual: " + PosicionContorno);
                         PosicionContornoAnt = PosicionContorno;
 
                         foreach (var data in objetos)
@@ -558,19 +553,15 @@ namespace prueba
                 if (primerElem.Value.Item1 >= lineaEliminar)
                 {
                     var posComparar = primerElem.Value.Item1;
-                    Console.WriteLine("borre " + Convert.ToString(primerElem));
                     int auxiliarSalida = 0;
                     foreach (var data in objetos)
                     {
-                        Console.WriteLine("Entre al foreach de eliminar varios");
                         var value = data.Value;
                         var idObjeto = data.Key;
                         auxiliarSalida += 1;
                         posXanterior = value.Item1;
-                        Console.WriteLine(posXanterior.ToString(), PosicionContorno.ToString());
                         if ((posComparar - posXanterior) < 5)
                         {
-                            Console.WriteLine("borre por contornos extra" + Convert.ToString(idObjeto));
                             objetos.Remove(idObjeto);
                         }
                         if (auxiliarSalida == 3)
@@ -594,10 +585,6 @@ namespace prueba
                 Cv2.WaitKey(1);
 
             }
-            //temporizador.Stop();
-            //TimeSpan tiempoTranscurrido = temporizador.Elapsed;
-            //double milisegundos = tiempoTranscurrido.TotalMilliseconds;
-            //Console.WriteLine(milisegundos.ToString());
             return image_rgb;
         }
 
