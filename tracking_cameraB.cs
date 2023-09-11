@@ -37,6 +37,9 @@ namespace prueba
 
         public static int contadorEntrada = 0;
         public static Boolean banderaVerificador = false;
+        public static int PosicionContorno = 0;
+        public static int PosicionContornoAnt = 0;
+        public static bool banderaEliminarMultiples = false;
 
         ////Lista donde se van a guardar las coordenadas.
         //public static List<(int x, int y)> coordenadas = new List<(int, int)>();
@@ -235,6 +238,40 @@ namespace prueba
                         var objetos1 = objetos.OrderByDescending(kpv => kpv.Value.Item2).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);//para recorrer B se adiciono
                         objetos = objetos1.OrderByDescending(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);//para recorrer se adiciono
                         int objetoevaluar = 0;
+
+                        if (objetos.Count() != 0)
+                        {
+                            var primerElemob = objetos.First();
+                            if ((PosicionContornoAnt > PosicionContorno && objetos.Count() > sortedContours.Count()))
+                            {
+                                Console.WriteLine("borre por contornos " + Convert.ToString(primerElemob));
+                                objetos.Remove(primerElemob.Key);
+                                int auxiliarSalida = 0;//sirve para que a lo sumo busque 3 varillas, mas de eso no ocurre.
+                                foreach (var data in objetos)
+                                {
+                                    Console.WriteLine("Entre al foreach de eliminar varios");
+                                    var value = data.Value;
+                                    var idObjeto = data.Key;
+                                    auxiliarSalida += 1;
+                                    posXanterior = value.Item1;
+                                    Console.WriteLine(posXanterior.ToString(), PosicionContorno.ToString());
+                                    if ((PosicionContorno - posXanterior) < 5)
+                                    {
+                                        Console.WriteLine("borre por contornos extra" + Convert.ToString(idObjeto));
+                                        objetos.Remove(idObjeto);
+                                    }
+                                    if (auxiliarSalida == 3)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+
+                        }
+                        Cv2.PutText(image_rgb, Convert.ToString(objetos.Count()), new Point(10, 500), HersheyFonts.Italic, 1, Scalar.White);
+                        Cv2.PutText(image_rgb, Convert.ToString(sortedContours.Count()), new Point(30, 500), HersheyFonts.Italic, 1, Scalar.White);
+                        //Console.WriteLine("contorno anterior: " + PosicionContornoAnt + " contorno actual: " + PosicionContorno);
+                        PosicionContornoAnt = PosicionContorno;
 
                         foreach (var data in objetos)
                         {
@@ -520,6 +557,27 @@ namespace prueba
                 var primerElem = objetos.First();
                 if (primerElem.Value.Item1 >= lineaEliminar)
                 {
+                    var posComparar = primerElem.Value.Item1;
+                    Console.WriteLine("borre " + Convert.ToString(primerElem));
+                    int auxiliarSalida = 0;
+                    foreach (var data in objetos)
+                    {
+                        Console.WriteLine("Entre al foreach de eliminar varios");
+                        var value = data.Value;
+                        var idObjeto = data.Key;
+                        auxiliarSalida += 1;
+                        posXanterior = value.Item1;
+                        Console.WriteLine(posXanterior.ToString(), PosicionContorno.ToString());
+                        if ((posComparar - posXanterior) < 5)
+                        {
+                            Console.WriteLine("borre por contornos extra" + Convert.ToString(idObjeto));
+                            objetos.Remove(idObjeto);
+                        }
+                        if (auxiliarSalida == 3)
+                        {
+                            break;
+                        }
+                    }
                     objetos.Remove(primerElem.Key);
                     elimine = true;
                 }
