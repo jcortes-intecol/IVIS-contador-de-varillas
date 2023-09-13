@@ -34,6 +34,7 @@ namespace prueba
         public static int auxcontador3 = 0;//se adiciono
         public static bool pararconteo;
         public static bool elimine;
+        public static int eliminaCantidad = 0;
 
         public static int contadorEntrada = 0;
         public static Boolean banderaVerificador = false;
@@ -255,15 +256,19 @@ namespace prueba
                                     if ((PosicionContorno - posXanterior) < 5)
                                     {
                                         objetos.Remove(idObjeto);
+                                        eliminaCantidad++;
                                     }
                                     if (auxiliarSalida == 3)
                                     {
                                         break;
                                     }
+                                    elimine = true;
+                                    eliminaCantidad++;
                                 }
                             }
 
                         }
+
                         Cv2.PutText(image_rgb, Convert.ToString(objetos.Count()), new Point(10, 500), HersheyFonts.Italic, 1, Scalar.White);
                         Cv2.PutText(image_rgb, Convert.ToString(sortedContours.Count()), new Point(30, 500), HersheyFonts.Italic, 1, Scalar.White);
                         PosicionContornoAnt = PosicionContorno;
@@ -338,14 +343,14 @@ namespace prueba
                                             {
                                                 if (elimine)
                                                 {
-                                                    if(VerificarUnion(1, cantidadContornos, 1))
+                                                    if(VerificarUnion(1, cantidadContornos))
                                                     {
                                                         auxcontador1++;
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    if(VerificarUnion(0, cantidadContornos, 1))
+                                                    if(VerificarUnion(0, cantidadContornos))
                                                     {
                                                         auxcontador1++;
                                                     }
@@ -356,7 +361,7 @@ namespace prueba
                                             {
                                                 if (elimine)
                                                 {
-                                                    if (VerificarUnion(1, cantidadContornos, 1))
+                                                    if (VerificarUnion(1, cantidadContornos))
                                                     {
                                                         auxcontador1++;
                                                         auxcontador2++;
@@ -365,7 +370,7 @@ namespace prueba
                                                 }
                                                 else
                                                 {
-                                                    if (VerificarUnion(0, cantidadContornos, 1))
+                                                    if (VerificarUnion(0, cantidadContornos))
                                                     {
                                                         auxcontador1++;
                                                         auxcontador2++;
@@ -377,7 +382,7 @@ namespace prueba
                                             {
                                                 if (elimine)
                                                 {
-                                                    if (VerificarUnion(1, cantidadContornos, 1))
+                                                    if (VerificarUnion(1, cantidadContornos))
                                                     {
                                                         auxcontador1++;
                                                         auxcontador3++;
@@ -387,7 +392,7 @@ namespace prueba
                                                 }
                                                 else
                                                 {
-                                                    if (VerificarUnion(0, cantidadContornos, 1))
+                                                    if (VerificarUnion(0, cantidadContornos))
                                                     {
                                                         auxcontador1++;
                                                         auxcontador3++;
@@ -405,7 +410,7 @@ namespace prueba
                                             {
                                                 if (elimine)
                                                 {
-                                                    if (VerificarUnion(1, cantidadContornos, 1))
+                                                    if (VerificarUnion(1, cantidadContornos))
                                                     {
                                                         auxcontador2++;
                                                         contador = auxcontador2;
@@ -413,7 +418,7 @@ namespace prueba
                                                 }
                                                 else
                                                 {
-                                                    if (VerificarUnion(0, cantidadContornos, 1))
+                                                    if (VerificarUnion(0, cantidadContornos))
                                                     {
                                                         auxcontador2++;
                                                         contador = auxcontador2;
@@ -425,7 +430,7 @@ namespace prueba
                                             {
                                                 if (elimine)
                                                 {
-                                                    if (VerificarUnion(1, cantidadContornos, 1))
+                                                    if (VerificarUnion(1, cantidadContornos))
                                                     {
                                                         auxcontador3++;
                                                         auxcontador2++;
@@ -434,7 +439,7 @@ namespace prueba
                                                 }
                                                 else
                                                 {
-                                                    if (VerificarUnion(0, cantidadContornos, 1))
+                                                    if (VerificarUnion(0, cantidadContornos))
                                                     {
                                                         auxcontador3++;
                                                         auxcontador2++;
@@ -450,14 +455,14 @@ namespace prueba
                                             {
                                                 if (elimine)
                                                 {
-                                                    if (VerificarUnion(1, cantidadContornos, 1))
+                                                    if (VerificarUnion(1, cantidadContornos))
                                                     {
                                                         auxcontador3++;
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    if (VerificarUnion(0, cantidadContornos, 1))
+                                                    if (VerificarUnion(0, cantidadContornos))
                                                     {
                                                         auxcontador3++;
                                                     }
@@ -537,14 +542,6 @@ namespace prueba
 
 
             Mat resp = new Mat();
-            //Cv2.Add(image_rgb, mainB.fondoNuevo, resp);
-            //Cv2.Add(image_rgb, mainB.fondoNuevo, image_rgb);
-            //Cv2.Add(image_binarizada_rgb, mainB.fondoNuevo, image_binarizada_rgb);
-
-            /*if ( PLCimg_morfologica_display)
-            {
-                Cv2.ImShow("Imagen final B", image_rgb);
-            }*/
 
             if (objetos.Count() != 0)
             {
@@ -563,6 +560,8 @@ namespace prueba
                         if ((posComparar - posXanterior) < 5)
                         {
                             objetos.Remove(idObjeto);
+                            eliminaCantidad++;
+                            
                         }
                         if (auxiliarSalida == 3)
                         {
@@ -571,6 +570,7 @@ namespace prueba
                     }
                     objetos.Remove(primerElem.Key);
                     elimine = true;
+                    eliminaCantidad++;
                 }
 
             }
@@ -585,6 +585,7 @@ namespace prueba
                 Cv2.WaitKey(1);
 
             }
+            elimine = false;
             return image_rgb;
         }
 
@@ -605,17 +606,9 @@ namespace prueba
                     contaFuncion++;
                 }
 
-                int eliminar = 0;
-
-                if (elimine)
-                {
-                    eliminar++;
-                    elimine = false;
-                }
-
-                int estadoInicial = objetos.Count() - eliminar;
+                int estadoInicial = objetos.Count() - eliminaCantidad;
                 int estadoFinal = cantidadContornos - contadorEntrada;
-
+                eliminaCantidad = 0;
                 if (VerificarUnion(estadoInicial, estadoFinal))
                 {
                     contaFuncion++;
@@ -642,21 +635,6 @@ namespace prueba
 
         public static bool VerificarUnion(int estadoInicial, int estadoFinal)
         {
-            if (estadoInicial > estadoFinal && banderaVerificador)
-            {
-                Console.WriteLine("Se juntaron");
-                Console.WriteLine(contadorEntrada);
-                Console.WriteLine(estadoFinal);
-                Console.WriteLine(estadoInicial);
-                return true;
-            }
-            return false;
-        }
-
-        public static bool VerificarUnion(int eliminar, int cantidadContornos, int aux)
-        {
-            int estadoInicial = objetos.Count() - eliminar;
-            int estadoFinal = cantidadContornos - contadorEntrada;
             if (estadoInicial > estadoFinal && banderaVerificador)
             {
                 Console.WriteLine("Se juntaron");
