@@ -197,6 +197,13 @@ namespace prueba
 
                     if (Area > Area_umbral)
                     {
+                        var primercontor = sortedContours.First();
+                        var BoundinRectUlt = Cv2.BoundingRect(primercontor);
+                        var x1 = BoundinRectUlt.X;
+                        PosicionContorno = x1;
+
+
+
                         //Cv2.DrawContours(src, Contornos, -1, 255, 1);
                         var boundingRect = Cv2.BoundingRect(contour);
                         var x = boundingRect.X;
