@@ -33,14 +33,13 @@ namespace prueba
         public static int auxcontador2 = 0;//se adiciono
         public static int auxcontador3 = 0;//se adiciono
         public static bool pararconteo;
-        public static bool elimine;
-        public static int eliminaCantidad = 0;
 
         public static int contadorEntrada = 0;
         public static Boolean banderaVerificador = false;
         public static int PosicionContorno = 0;
         public static int PosicionContornoAnt = 0;
         public static bool banderaEliminarMultiples = false;
+        public static bool banderaCount = false;
 
         ////Lista donde se van a guardar las coordenadas.
         //public static List<(int x, int y)> coordenadas = new List<(int, int)>();
@@ -119,45 +118,9 @@ namespace prueba
 
             var sortedContours1 = Contornos.OrderByDescending(contour => Cv2.BoundingRect(contour).Y);
             var sortedContours = Contornos.OrderByDescending(sortedContours1 => Cv2.BoundingRect(sortedContours1).X);
-            //var sortedContours = Contornos.OrderByDescending(contour => Cv2.BoundingRect(contour).X); //para camara B
-
-
-            //if (objetos.Count() != 0)
-            //{
-            //    objetos = objetos.OrderByDescending(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);// para A y B
-            //    var primerElem = objetos.First();
-            //    if (primerElem.Value.Item1 >= lineaEliminar)
-            //    {
-            //        objetos.Remove(primerElem.Key);
-
-            //    }
-
-            //}
-
-
-            //var numcontornos = Contornos.Length;
-            //var restacontor = contorAnterior - numcontornos;
-
-
-            //if (restacontor > 0 && objetos.Count()!=0)
-            //{
-
-            //    for (int i = 0; i < restacontor; i++)
-            //    {
-            //        objetos = objetos.OrderByDescending(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);// para A y B
-            //        var primerElem = objetos.First();//para B eliminar el primero
-            //        objetos.Remove(primerElem.Key);
-
-
-            //    }
-
-
-            //}
-            //contorAnterior = numcontornos;
-
-
+            
             var objetosAEliminar = new List<int>(objetos.Keys);
-            //var objetosNuevos = new Dictionary<int, (int, int, int)>();//se adiciono
+
             var objetosNuevos = new Dictionary<int, (int, int, int, int, int)>();
             var mismoobjeto = false;
             int x_umbral = (int)(image_rgb.Width * porcentaje_umbral_X);
@@ -263,14 +226,13 @@ namespace prueba
                                     if ((PosicionContorno - posXanterior) < 5)
                                     {
                                         objetos.Remove(idObjeto);
-                                        eliminaCantidad++;
                                     }
+                                    //se puede o no eliminar, no es necesario y es para evitar recorrer todo el diccionario
                                     if (auxiliarSalida == 3)
                                     {
                                         break;
                                     }
-                                    elimine = true;
-                                    eliminaCantidad++;
+                                    //se puede o no eliminar, no es necesario y es para evitar recorrer todo el diccionario
                                 }
                             }
 
@@ -311,10 +273,10 @@ namespace prueba
                                 Cv2.DrawContours(image_rgb, sortedContours, contourIndex, Scalar.DarkGreen, 2);
                                 if (!pararconteo || dis < 3) //***********************************
                                 {
-                                    if (posXActual == posXanterior)
-                                    {
-                                        continue;
-                                    }
+                                    //if (posXActual == posXanterior)
+                                    //{
+                                    //    continue;
+                                    //} 
 
                                     if (done == 0) //linea a 0.3
                                     {
@@ -340,7 +302,7 @@ namespace prueba
                                         contador = auxcontador1;
                                     }
 
-                                    if((w> width_umbral || h>height_humbral))
+                                    if ((w> width_umbral || h>height_humbral) && !banderaCount)
                                     {
                                         //Comenzo antes de la primera Linea
                                         if(posXanterior < x_umbral1)
@@ -348,64 +310,29 @@ namespace prueba
                                             //Paso la primera linea
                                             if (x_umbral1 < posXActual && posXActual < x_umbral)
                                             {
-                                                if (elimine)
+                                                if(VerificarUnion(0, cantidadContornos, 0))
                                                 {
-                                                    if(VerificarUnion(1, cantidadContornos))
-                                                    {
-                                                        auxcontador1++;
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if(VerificarUnion(0, cantidadContornos))
-                                                    {
-                                                        auxcontador1++;
-                                                    }
+                                                    auxcontador1++;
                                                 }
                                             }
                                             //Paso la primera y segunda linea
                                             if (x_umbral < posXActual && posXActual < x_umbral2)
                                             {
-                                                if (elimine)
+                                                if (VerificarUnion(0, cantidadContornos, 0))
                                                 {
-                                                    if (VerificarUnion(1, cantidadContornos))
-                                                    {
-                                                        auxcontador1++;
-                                                        auxcontador2++;
-                                                        contador = auxcontador2;
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if (VerificarUnion(0, cantidadContornos))
-                                                    {
-                                                        auxcontador1++;
-                                                        auxcontador2++;
-                                                        contador = auxcontador2;
-                                                    }
+                                                    auxcontador1++;
+                                                    auxcontador2++;
+                                                    contador = auxcontador2;
                                                 }
                                             }
                                             if (x_umbral2 < posXActual)
                                             {
-                                                if (elimine)
+                                                if (VerificarUnion(0, cantidadContornos, 0))
                                                 {
-                                                    if (VerificarUnion(1, cantidadContornos))
-                                                    {
-                                                        auxcontador1++;
-                                                        auxcontador3++;
-                                                        auxcontador2++;
-                                                        contador = auxcontador2;
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if (VerificarUnion(0, cantidadContornos))
-                                                    {
-                                                        auxcontador1++;
-                                                        auxcontador3++;
-                                                        auxcontador2++;
-                                                        contador = auxcontador2;
-                                                    }
+                                                    auxcontador1++;
+                                                    auxcontador3++;
+                                                    auxcontador2++;
+                                                    contador = auxcontador2;
                                                 }
                                             }
                                         }
@@ -415,43 +342,20 @@ namespace prueba
                                             //Esta antes de la 3ra linea
                                             if (x_umbral < posXActual && posXActual < x_umbral2)
                                             {
-                                                if (elimine)
+                                                if (VerificarUnion(0, cantidadContornos, 0))
                                                 {
-                                                    if (VerificarUnion(1, cantidadContornos))
-                                                    {
-                                                        auxcontador2++;
-                                                        contador = auxcontador2;
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if (VerificarUnion(0, cantidadContornos))
-                                                    {
-                                                        auxcontador2++;
-                                                        contador = auxcontador2;
-                                                    }
+                                                    auxcontador2++;
+                                                    contador = auxcontador2;
                                                 }
                                             }
                                             //Esta despues de la 3ra linea
                                             if (x_umbral2 < posXActual)
                                             {
-                                                if (elimine)
+                                                if (VerificarUnion(0, cantidadContornos, 0))
                                                 {
-                                                    if (VerificarUnion(1, cantidadContornos))
-                                                    {
-                                                        auxcontador3++;
-                                                        auxcontador2++;
-                                                        contador = auxcontador2;
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if (VerificarUnion(0, cantidadContornos))
-                                                    {
-                                                        auxcontador3++;
-                                                        auxcontador2++;
-                                                        contador = auxcontador2;
-                                                    }
+                                                    auxcontador3++;
+                                                    auxcontador2++;
+                                                    contador = auxcontador2;
                                                 }
                                             }
                                         }
@@ -460,28 +364,21 @@ namespace prueba
 
                                             if (x_umbral2 < posXActual)
                                             {
-                                                if (elimine)
+                                                if (VerificarUnion(0, cantidadContornos, 0))
                                                 {
-                                                    if (VerificarUnion(1, cantidadContornos))
-                                                    {
-                                                        auxcontador3++;
-                                                    }
+                                                    auxcontador3++;
                                                 }
-                                                else
-                                                {
-                                                    if (VerificarUnion(0, cantidadContornos))
-                                                    {
-                                                        auxcontador3++;
-                                                    }
-                                                }
+                                                
                                             }
                                         }
                                     }
+                                    banderaCount = false;
                                 }
                                 else //*****************************
                                 {
                                     Cv2.PutText(image_rgb, "Conteo pausado", new Point(50, 300), HersheyFonts.Italic, 2, new Scalar(255, 0, 0), 5);
                                 }
+
                                 objetos[idObjeto] = (posXActual, posYActual, done, done1, done2);
                                 objetosNuevos[idObjeto] = (posXActual, posYActual, done, done1, done2);
                                 mismoobjeto = true;
@@ -503,13 +400,6 @@ namespace prueba
 
                         }
 
-                        //if (!mismoobjeto)
-                        //{
-                        //    objetosNuevos.Add(id_cont, (posXActual, posYActual, 0));
-                        //    id_cont++;
-
-                        //}
-
                         if (!mismoobjeto )
                         {
                             objetosNuevos.Add(id_cont, (posXActual, posYActual, 0, 0, 0));
@@ -519,22 +409,12 @@ namespace prueba
                     }
                 }
             }
+
             foreach (var idObjeto in objetosAEliminar)
             {
                 objetos.Remove(idObjeto);
             }
 
-            //var valoresUnicos = new List<object>();
-            //foreach (var (idObjeto, value) in objetosNuevos)
-            //{
-            //    var objetoAnonimo = new { Item1 = value.Item1, Item2 = value.Item2, Item3 = value.Item3 };
-            //    if (!valoresUnicos.Any(o => o.Equals(objetoAnonimo)))
-            //    {
-            //        var tupla = (objetoAnonimo.Item1, objetoAnonimo.Item2, objetoAnonimo.Item3);
-            //        objetos[idObjeto] = tupla;
-            //        valoresUnicos.Add(objetoAnonimo);
-            //    }
-            //}
             var valoresUnicos = new List<object>();
             foreach (var (idObjeto, value) in objetosNuevos)
             {
@@ -567,7 +447,6 @@ namespace prueba
                         if ((posComparar - posXanterior) < 5)
                         {
                             objetos.Remove(idObjeto);
-                            eliminaCantidad++;
                             
                         }
                         if (auxiliarSalida == 3)
@@ -576,8 +455,6 @@ namespace prueba
                         }
                     }
                     objetos.Remove(primerElem.Key);
-                    elimine = true;
-                    eliminaCantidad++;
                 }
 
             }
@@ -592,7 +469,6 @@ namespace prueba
                 Cv2.WaitKey(1);
 
             }
-            elimine = false;
             return image_rgb;
         }
 
@@ -601,7 +477,6 @@ namespace prueba
 
             int NewDone1;
 
-            ////*******************************segunda linea ***********************************************
             if (CoordenadasXActuales >= x_umbral && CoordenadasXAnteriores < x_umbral)
             {
                 NewDone1 = 1;
@@ -613,12 +488,12 @@ namespace prueba
                     contaFuncion++;
                 }
 
-                int estadoInicial = objetos.Count() - eliminaCantidad;
+                int estadoInicial = objetos.Count();
                 int estadoFinal = cantidadContornos - contadorEntrada;
-                eliminaCantidad = 0;
                 if (VerificarUnion(estadoInicial, estadoFinal))
                 {
                     contaFuncion++;
+                    banderaCount = true;
                 }
 
                 if (VerificarSeparacion(estadoInicial, estadoFinal))
@@ -666,7 +541,22 @@ namespace prueba
             }
             return false;
         }
-        
+
+        public static bool VerificarUnion(int eliminar, int cantidadContornos, int aux)
+        {
+            int estadoInicial = objetos.Count();
+            int estadoFinal = cantidadContornos - contadorEntrada;
+            if (estadoInicial > estadoFinal && banderaVerificador)
+            {
+                Console.WriteLine("Se juntaron");
+                Console.WriteLine(contadorEntrada);
+                Console.WriteLine(estadoFinal);
+                Console.WriteLine(estadoInicial);
+                return true;
+            }
+            return false;
+        }
+
     }
 
 }
