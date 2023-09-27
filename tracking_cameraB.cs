@@ -138,7 +138,8 @@ namespace prueba
             Cv2.PutText(image_rgb, Convert.ToString(auxcontador1), new Point(x_umbral1 + 10, 150 / 2), HersheyFonts.Italic, 1.2, Scalar.White);
             Cv2.PutText(image_rgb, Convert.ToString(auxcontador3), new Point(x_umbral2 + 10, 150 / 2), HersheyFonts.Italic, 1.2, Scalar.White);
             //Cv2.PutText(image_rgb, Convert.ToString(objetos.Count()), new Point(10, 500), HersheyFonts.Italic, 1.2, Scalar.White);
-            //mainB.framesProcesados
+            //mainB.framesProcesados;
+            //Cv2.PutText(image_rgb, Convert.ToString(mainB.framesProcesados), new Point(50, 500), HersheyFonts.HersheySimplex, 1.2, Scalar.White);
             int counter = 0;
             int count_obj = 0;
             if (Indexes.Length > 0)

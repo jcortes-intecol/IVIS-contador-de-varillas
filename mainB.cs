@@ -42,8 +42,8 @@ namespace prueba
         public static int framesProcesados = 0;
 
         //Se agrega la imagen promedidada para eliminar el ruido de fondo (jairo 26/06/2023)
-        //static Mat fondo = Cv2.ImRead("C:\\Users\\intecol\\Documents\\Despliegue\\IVIS_TRACKING\\imagen_promediada.png", ImreadModes.Grayscale);
-        static Mat fondo = Cv2.ImRead("C:\\Users\\intecol\\Documents\\Despliegue\\IVIS_TRACKING\\imagen_prueba_resta.png", ImreadModes.Grayscale);
+        static Mat fondo = Cv2.ImRead("C:\\Users\\intecol\\Documents\\Despliegue\\IVIS_TRACKING\\imagen_promediada.png", ImreadModes.Grayscale);
+        //static Mat fondo = Cv2.ImRead("C:\\Users\\intecol\\Documents\\Despliegue\\IVIS_TRACKING\\imagen_prueba_resta.png", ImreadModes.Grayscale);
 
         //public static Mat fondoNuevo = Cv2.ImRead("C:\\Users\\intecol\\Documents\\Despliegue\\IVIS_TRACKING\\fondonuevo.png", ImreadModes.Grayscale);
 
@@ -171,10 +171,7 @@ namespace prueba
                 //{
                 //    Cv2.Pow(imageFloat, 1.45, dst1);
                 //}
-                //if (IdReceta == 2)//habia un == se le aplica un pow de 1.4 para todas las referencias desde media hacia abajo
-                //{
-                //    Cv2.Pow(imageFloat, 1.28, dst1);
-                //}
+               
                 //if (IdReceta == 8)//habia un == se le aplica un pow de 1.4 para todas las referencias desde media hacia abajo
                 //{
                 //    Cv2.Pow(imageFloat, 1.3, dst1);
@@ -185,7 +182,11 @@ namespace prueba
                 }
                 if (IdReceta == 9 || IdReceta == 6)
                 {
-                    Cv2.Pow(imageFloat, 1.4, dst1);
+                    Cv2.Pow(imageFloat, 1.45, dst1);
+                }
+                if (IdReceta == 2)//habia un == se le aplica un pow de 1.4 para todas las referencias desde media hacia abajo
+                {
+                    Cv2.Pow(imageFloat, 1.5, dst1);
                 }
                 dst1.ConvertTo(dst1, MatType.CV_8UC1);
 
