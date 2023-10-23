@@ -55,8 +55,8 @@ namespace prueba
         public static Mat TrackerObjecCameraB(Mat image_rgb, Mat image_binarizada_rgb, Point[][] Contornos, HierarchyIndex[] Indexes)
         {
 
-            Stopwatch temporizador = new Stopwatch();
-            temporizador.Start();
+            //Stopwatch temporizador = new Stopwatch();
+            //temporizador.Start();
             Referencias referenciaB = NReferencia.ObtenerReferenciaB(mainB.IdReceta)[0];
             int dist_umbral_below = referenciaB.distUmbralBelow;
             int dist_umbral_above = referenciaB.distUmbralAbove;
@@ -484,20 +484,22 @@ namespace prueba
 
                 contaFuncion++;
 
-                if (width >= widht_umbral || height > height_umbral)
-                {
-                    contaFuncion++;
-                }
 
-                int estadoInicial = objetos.Count();
-                int estadoFinal = cantidadContornos - contadorEntrada;
-                if (VerificarUnion(estadoInicial, estadoFinal))
+                if (width >= widht_umbral || height > height_umbral)
                 {
                     contaFuncion++;
                     banderaCount = true;
                 }
 
-                if (VerificarSeparacion(estadoInicial, estadoFinal))
+                int estadoInicial = objetos.Count();
+                int estadoFinal = cantidadContornos - contadorEntrada;
+                if (VerificarUnion(estadoInicial, estadoFinal) &&!banderaCount)
+                {
+                    contaFuncion++;
+                    banderaCount = true;
+                }
+
+                if (VerificarSeparacion(estadoInicial, estadoFinal) )
                 {
                     contaFuncion++;
                 }

@@ -114,6 +114,26 @@ namespace prueba
                                 }
                                 if (SeparationDoneA == false) { reinicarContA = 0; }
 
+                                //HAY QUE ACTIVAR EL FORCEO DE CONTEO PARA A, FALTA CUADRAR LA DIRECCION DEL BUFFER EN EL PLC PARA ACTIVARLO Y YA DESCOMENTAR ESTAS LINEAS 
+
+                                //bool forzarContadorA = S7.GetBitAt(buffer, 1, 0);
+                                ////Console.WriteLine(forzarContadorB);
+                                //if (forzarContadorA)
+                                //{
+                                //    //Console.WriteLine("entro");
+                                //    int valorAAsignarA = S7.GetIntAt(buffer, 10);
+                                //    //Console.WriteLine(valorAAsignarB);
+                                //    tracking_cameraA.contador = valorAAsignarA;
+                                //    tracking_cameraA.auxcontador1 = valorAAsignarA;
+                                //    tracking_cameraA.auxcontador2 = valorAAsignarA;
+                                //    tracking_cameraA.auxcontador3 = valorAAsignarA;
+                                //    //var bufferForzar = new byte[1];
+                                //    // bool value = false;
+                                //    S7.SetBitAt(buffer, 1, 0, false);
+                                //    int writeForzar = Client.DBWrite(300, 0, buffer.Length, buffer);
+                                //}
+
+
                             }
                             if (IniciarPararMedA == false)
                             {
