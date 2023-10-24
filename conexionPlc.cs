@@ -68,13 +68,13 @@ namespace prueba
                             bool respuesta = S7.GetBitAt(buffer, 1, 7);
                             S7.SetBitAt(buffer303, 1, 0, respuesta);
                             int watchdog = Client.DBWrite(303, 0, buffer303.Length, buffer303);
-                            //******************************************************************************
+                            //******************************************************************************s
 
                             if (condition != 0 || watchdog != 0 || db303 != 0)
                             {
                                 Client.Disconnect();
                                 BanderaReConection = false;
-
+                                LoggerFacade.doLog(LoggerFacade.NivelLog.INFO, "Error en lectura del PLC");
                                 Console.WriteLine("lectura db error " + condition.ToString("x"));
                                 break;
                             }
@@ -141,7 +141,6 @@ namespace prueba
                             {
                                 //Console.WriteLine("Finalizó medicion A");
                                 ControlCamaraA.stopmed = true;
-                                
                                 S7.SetBitAt(buffer303, 0, 2, ControlCamaraA.Statecont);
                                 int contB = Client.DBWrite(303, 0, buffer303.Length, buffer303);
                                 Aux = 0;
@@ -185,11 +184,12 @@ namespace prueba
 
                                     //int contrest = Client.DBWrite(300, 0, buffer.Length, buffer);
                                 }
-                                if (SeparationDoneB == false) { reinicarContB = 0; }
-                                ///<summary>
-                                ///in the lines 132 to 144
-                                ///Forces the count of the counter and write false into the plc
-                                ///</summary>
+                                if (SeparationDoneB == false) {
+
+                                    LoggerFacade.doLog(LoggerFacade.NivelLog.INFO, "Se reinicia el conteo de B");
+                                    reinicarContB = 0; 
+                                }
+                                
                                 //Console.WriteLine("A fuera");
                                 bool forzarContadorB = S7.GetBitAt(buffer, 1, 0);
                                 //Console.WriteLine(forzarContadorB);
@@ -223,7 +223,7 @@ namespace prueba
 
                             //************************* escritura medicion al plc *********************************************
                            
-                            S7.SetBitAt(buffer303, 0, 3, ControlCamaraA.StateCamera);
+                           S7.SetBitAt(buffer303, 0, 3, ControlCamaraA.StateCamera);
                            int StateA = Client.DBWrite(303, 0, buffer303.Length, buffer303); //escribe en el plc el stado de las camaras 
                            //var StateCameraB = new byte[1];
                            S7.SetBitAt(buffer303, 0, 7, ControlCameraB.StateCamera);
@@ -287,7 +287,7 @@ namespace prueba
                     string IPPlc = NParametros.IPPlc;
                     int stateConnection = Client.ConnectTo(IPPlc, Rack, Slot);
                     BanderaConection = true;
-                    LoggerFacade.doLog(LoggerFacade.NivelLog.INFO, "Fallo conexion PLC");
+                    LoggerFacade.doLog(LoggerFacade.NivelLog.INFO, "Fallo reconexion PLC");
                     Console.WriteLine("no se conecto el plc");
                 }
                 
