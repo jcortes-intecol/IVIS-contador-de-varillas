@@ -55,8 +55,8 @@ namespace prueba
         public static Mat TrackerObjecCameraB(Mat image_rgb, Mat image_binarizada_rgb, Point[][] Contornos, HierarchyIndex[] Indexes)
         {
 
-            Stopwatch temporizador = new Stopwatch();
-            temporizador.Start();
+            //Stopwatch temporizador = new Stopwatch();
+            //temporizador.Start();
             Referencias referenciaB = NReferencia.ObtenerReferenciaB(mainB.IdReceta)[0];
             int dist_umbral_below = referenciaB.distUmbralBelow;
             int dist_umbral_above = referenciaB.distUmbralAbove;
@@ -460,6 +460,7 @@ namespace prueba
                         {
                             break;
                         }
+
                     }
                     objetos.Remove(primerElem.Key);
                 }
@@ -490,6 +491,7 @@ namespace prueba
 
                 contaFuncion++;
 
+
                 if (width >= widht_umbral || height > height_umbral)
                 {
                     contaFuncion++;
@@ -498,22 +500,23 @@ namespace prueba
 
                 int estadoInicial = objetos.Count();
                 int estadoFinal = cantidadContornos - contadorEntrada;
-                if (VerificarUnion(estadoInicial, estadoFinal)  && !banderaCount)
-                {
-                    contaFuncion++;
-                    banderaCount = true;
-                }
+                //if (VerificarUnion(estadoInicial, estadoFinal) &&!banderaCount)
+                //{
+                //    contaFuncion++;
+                //   banderaCount = true;
+                //}
 
-                if (VerificarSeparacion(estadoInicial, estadoFinal))
+                if (VerificarSeparacion(estadoInicial, estadoFinal) )
                 {
                     contaFuncion++;
                 }
                 else
                 {
-                    //Console.WriteLine("Iguales o no se han visto todos los contornos");
-                    //Console.WriteLine(contadorEntrada);
-                    //Console.WriteLine(estadoFinal);
-                    //Console.WriteLine(estadoInicial);
+
+                    Console.WriteLine("Iguales o no se han visto todos los contornos");
+                    Console.WriteLine(contadorEntrada);
+                    Console.WriteLine(estadoFinal);
+                    Console.WriteLine(estadoInicial);
                 }
             }
             else

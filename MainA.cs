@@ -33,7 +33,7 @@ namespace prueba
         {
 
 
-            try { 
+            //try { 
 
             OpenCvSharp.Point[][] contornos_anterior;
             HierarchyIndex[] Indexes_anterior;
@@ -47,21 +47,21 @@ namespace prueba
             Cv2.CvtColor(image_binarizada, image_binarizada_rgb, ColorConversionCodes.GRAY2BGR);
 
             image_rgb = tracking_cameraA.TrackerObjecCameraA(image_rgb, image_binarizada_rgb, contornos_actual, Indexes_actual);
-            if(imagcont==1) 
-                {
-                    Cv2.DestroyWindow("Imagen final A");
-                    imagcont = 0;
-                }
+            //if(imagcont==1) 
+            //    {
+            //        Cv2.DestroyWindow("Imagen final A");
+            //        imagcont = 0;
+            //    }
 
            
-            }
-            catch (Exception e) 
-            { 
-                image_rgb = image_rgb;
-                Cv2.ImShow("Imagen final A", image_binarizada);
-                Cv2.WaitKey(1);
-                imagcont = 1;
-            }
+            //}
+            //catch (Exception e) 
+            //{ 
+            //    image_rgb = image_rgb;
+            //    Cv2.ImShow("Imagen final A", image_binarizada);
+            //    Cv2.WaitKey(1);
+            //    imagcont = 1;
+            //}
             // self.Release();
             return (image_rgb);
         }
@@ -119,7 +119,12 @@ namespace prueba
 
                 int Save_Img = Convert.ToInt32(DParametro.ObtenerParametro("GuardarImagenA"));
 
-                Cv2.CvtColor(frame, dst1, ColorConversionCodes.RGB2GRAY); //frame es la imagen con los 3 canales RGB
+                Mat dst2 = new Mat();
+
+                // Procesar la imagen aquí, por ejemplo, voltearla (efecto espejo) y  convertirla a escala de grises
+                Cv2.Flip(frame, dst2, FlipMode.Y);
+
+                Cv2.CvtColor(dst2, dst1, ColorConversionCodes.RGB2GRAY); //frame es la imagen con los 3 canales RGB
 
                 //Mat roiImg = dst1;
 
@@ -133,71 +138,72 @@ namespace prueba
                 //se convierte la imagen a formato de 32 para poder aplicar el pow
                 dst1.ConvertTo(imageFloat, MatType.CV_32F);
 
-                //Se aplica el pow
-                if (mainB.IdReceta != 9)
+                ////Se aplica el pow
+                //if (mainB.IdReceta != 9)
+                //{
+                //    Cv2.Pow(imageFloat, 1.42, dst1);
+                //}
+                //if (mainB.IdReceta == 2)
+                //{
+                //    Cv2.Pow(imageFloat, 1.5, dst1);
+                //}
+
+                Mat roiSegmentado = new Mat();
+                //dst1.ConvertTo(dst1, MatType.CV_8UC1);// despues del pow es necesario volver la imagen nuevamente a formato de 8 con un solo canal
+
+                if (mainB.IdReceta != 9 || mainB.IdReceta != 6)
                 {
-                    Cv2.Pow(imageFloat, 1.42, dst1);
+                    Cv2.Pow(imageFloat, 1.3, dst1);
                 }
-                if (mainB.IdReceta == 2)
+                if (mainB.IdReceta == 9 || mainB.IdReceta == 6)
+                {
+                    Cv2.Pow(imageFloat, 1.45, dst1);
+                }
+                if (mainB.IdReceta == 2)//habia un == se le aplica un pow de 1.4 para todas las referencias desde media hacia abajo
                 {
                     Cv2.Pow(imageFloat, 1.5, dst1);
                 }
+                dst1.ConvertTo(dst1, MatType.CV_8UC1);
 
-                Mat roiSegmentado = new Mat();
-                dst1.ConvertTo(dst1, MatType.CV_8UC1);// despues del pow es necesario volver la imagen nuevamente a formato de 8 con un solo canal
+                //Mat mask = new Mat();
+                //Cv2.Threshold(dst1, segmentacionRGB2, 130, 255, ThresholdTypes.Binary);
+                Cv2.Threshold(dst1, roiSegmentado, umbral_threshold, 255, ThresholdTypes.Binary);
 
-                //Aumentos de brillos Jairo
-                if (mainB.IdReceta == 9)
-                {
-                    Cv2.Threshold(dst1, roiSegmentado, 100, 255, ThresholdTypes.Binary);
-                    Cv2.Threshold(roiSegmentado, roiSegmentado, 120, 255, ThresholdTypes.BinaryInv);
-
-                    //Se invierte la imgen porque queda blanca
-                    Cv2.BitwiseNot(roiSegmentado, roiSegmentado);
-                }
-
-                
-
-
-                //roiImg.ConvertTo(roiImg, -1, contraste_mult, contraste_sum);
-
-                //Se aplica el threshold si no se aumentaron los brillos.
-                if (mainB.IdReceta != 6)
-                {
-                    Cv2.Threshold(dst1, roiSegmentado, umbral_threshold, 255, ThresholdTypes.Binary);
-                }
-
-                if (mainB.IdReceta >= 1 && mainB.IdReceta <= 9 && mainB.IdReceta != 5)
+                if (mainB.IdReceta >= 1 && mainB.IdReceta < 9 && mainB.IdReceta != 5)
                 {
                     Blocksize = 97;
                     Double = 0;
                 }
-                if (mainB.IdReceta == 5 || mainB.IdReceta > 9)
+                if (mainB.IdReceta == 5 || mainB.IdReceta >= 9)
                 {
-                    Blocksize = 97;
-                    Double = 0;
+                    Blocksize = 127;
+                    Double = 2;
                 }
                 if (mainB.IdReceta == 6)
                 {
                     Blocksize = 127;
                     Double = 0;
                 }
-
-                Mat mask = new Mat();
-
-                //cambios para habilitar el adaptative (jairo 28 de junio)
+                //Cambios 1 1/8 jairo (30 de junio)
+                if (mainB.IdReceta == 11 || mainB.IdReceta == 12 || mainB.IdReceta == 8)
+                {
+                    Blocksize = 127;
+                    Double = 2;
+                }
+                //cambios para habilitar el adaptative (jairo 27 de junio)
                 Mat imagen_adaptative = new Mat();
                 Cv2.AdaptiveThreshold(roiSegmentado, imagen_adaptative, 255, AdaptiveThresholdTypes.MeanC, ThresholdTypes.Binary, Blocksize, Double);
-                //Cv2.AdaptiveThreshold(frame, imagen_adaptative, 255, AdaptiveThresholdTypes.MeanC, ThresholdTypes.Binary, Blocksize, Double);
                 Cv2.BitwiseAnd(imagen_adaptative, roiSegmentado, roiSegmentado);
 
                 // Sustraer el fondo de la imagen original utilizando la máscara
                 Mat result = new Mat();
 
                 Mat ImgSegmentado = new Mat();
-                //Mat result_morph = PhiltroMorphologyCameraA(ImgSegmentado, kernel_hor, kernel_ver, kernel_circ_hor, kernel_circ_ver);
-                Mat result_morph = PhiltroMorphologyCameraA(roiSegmentado, kernel_hor, kernel_ver, kernel_circ_hor, kernel_circ_ver);
-                //Se muestra la imagen
+                Mat result_morph;
+                result_morph = PhiltroMorphologyCameraA(roiSegmentado, kernel_hor, kernel_ver, kernel_circ_hor, kernel_circ_ver);
+
+                //dst1 = CameraObjectDetectionB(roiSegmentado, result_morph);
+
                 dst1 = CameraObjectDetectionA(dst1, result_morph);
 
 
