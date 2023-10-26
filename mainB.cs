@@ -176,7 +176,7 @@ namespace prueba
                 //{
                 //    Cv2.Pow(imageFloat, 1.3, dst1);
                 //}
-                if (IdReceta != 9 || IdReceta != 6)
+                if (IdReceta != 9 || IdReceta != 6 || IdReceta!=1|| IdReceta != 2)
                 {
                     Cv2.Pow(imageFloat, 1.3, dst1);
                 }
@@ -187,6 +187,10 @@ namespace prueba
                 if (IdReceta == 2)//habia un == se le aplica un pow de 1.4 para todas las referencias desde media hacia abajo
                 {
                     Cv2.Pow(imageFloat, 1.5, dst1);
+                }
+                if (IdReceta == 1)//habia un == se le aplica un pow de 1.4 para todas las referencias desde media hacia abajo
+                {
+                    Cv2.Pow(imageFloat, 1.4, dst1);
                 }
                 dst1.ConvertTo(dst1, MatType.CV_8UC1);
 
