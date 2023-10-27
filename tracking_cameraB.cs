@@ -493,11 +493,11 @@ namespace prueba
 
                 int estadoInicial = objetos.Count();
                 int estadoFinal = cantidadContornos - contadorEntrada;
-                if (VerificarUnion(estadoInicial, estadoFinal) &&!banderaCount)
-                {
-                    contaFuncion++;
-                    banderaCount = true;
-                }
+                //if (VerificarUnion(estadoInicial, estadoFinal) &&!banderaCount)
+                //{
+                //    contaFuncion++;
+                //   banderaCount = true;
+                //}
 
                 if (VerificarSeparacion(estadoInicial, estadoFinal) )
                 {
@@ -518,7 +518,7 @@ namespace prueba
             return (NewDone1, contaFuncion);
         }
 
-        public static bool VerificarUnion(int estadoInicial, int estadoFinal)
+        public static bool VerificarUnion(int estadoInicial, int estadoFinal)s
         {
             if (estadoInicial > estadoFinal && banderaVerificador)
             {
