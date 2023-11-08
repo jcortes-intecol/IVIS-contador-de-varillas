@@ -102,7 +102,7 @@ namespace Camara.Modbus.Servicio.control
 
                             if (rawImage.IsIncomplete)
                             {
-                                Console.WriteLine("Image incomplete with image status {0}...", rawImage.ImageStatus);
+                                Console.WriteLine("Image cam B incomplete with image status {0}...", rawImage.ImageStatus);
                             }
                             else
                             {

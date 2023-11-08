@@ -477,8 +477,8 @@ namespace prueba
 
             if (img_morfologica_display == 1 || PLCimg_morfologica_display)
             {
-                Cv2.ImShow("Imagen final B", image_rgb);
-                Cv2.ImShow("imagen segmentada Cam B", image_binarizada_rgb);
+                Cv2.ImShow("Imagen final A", image_rgb);
+                Cv2.ImShow("imagen segmentada Cam A", image_binarizada_rgb);
             }
             if (PLCimg_morfologica_display || img_morfologica_display == 1)
             {

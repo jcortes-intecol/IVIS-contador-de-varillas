@@ -27,7 +27,7 @@ namespace prueba
         public static int imagcont;
 
         //Se agrega la imagen promedidada para eliminar el ruido de fondo (jairo 26/06/2023)
-        //static Mat fondo = Cv2.ImRead("C:\\Users\\intecol\\Documents\\Despliegue\\IVIS_TRACKING\\imagen_promediada_A.png", ImreadModes.Grayscale);
+        static Mat fondo = Cv2.ImRead("C:\\Users\\intecol\\Documents\\Despliegue\\IVIS_TRACKING\\imagen_promediada_A.jpg", ImreadModes.Grayscale);
 
         public static Mat CameraObjectDetectionA(Mat image_rgb, Mat image_binarizada)
         {
@@ -120,19 +120,22 @@ namespace prueba
                 int Save_Img = Convert.ToInt32(DParametro.ObtenerParametro("GuardarImagenA"));
 
                 Mat dst2 = new Mat();
+                Mat frameRestado = new Mat();
 
-                // Procesar la imagen aquí, por ejemplo, voltearla (efecto espejo) y  convertirla a escala de grises
-                Cv2.Flip(frame, dst2, FlipMode.Y);
+              
 
-                Cv2.CvtColor(dst2, dst1, ColorConversionCodes.RGB2GRAY); //frame es la imagen con los 3 canales RGB
+
+
+                Cv2.CvtColor(frame, dst2, ColorConversionCodes.RGB2GRAY); //frame es la imagen con los 3 canales RGB
+
 
                 //Mat roiImg = dst1;
 
                 //Se agrega para quitar el ruido de fondo (jairo 28/06/2023)
-                //if (mainB.IdReceta == 6)
-                //{
-                //    Cv2.Subtract(dst1, fondo, dst1);
-                //}
+                Cv2.Subtract(dst2, fondo, dst2);
+
+                // Procesar la imagen aquí, por ejemplo, voltearla (efecto espejo) y  convertirla a escala de grises
+                Cv2.Flip(dst2, dst1, FlipMode.Y);
 
                 Mat imageFloat = new Mat();
                 //se convierte la imagen a formato de 32 para poder aplicar el pow

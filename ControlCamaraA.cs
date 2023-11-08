@@ -78,7 +78,7 @@ namespace TRACKING
             //*************** determinar el color de la imagenes en el procesador 
             processor.SetColorProcessing(ColorProcessingAlgorithm.HQ_LINEAR);
             NParametros.ActualizarParametro("StateCameraA", "Int", Convert.ToString(0));
-            StateCamera = true;
+            StateCamera = false;
 
             while (!PeticionPlc.IsCancellationRequested)
             //for (int imageCnt = 0; imageCnt < NumImages; imageCnt++) guarda un determinado numero de imagenes 
@@ -106,7 +106,7 @@ namespace TRACKING
 
                             if (rawImage.IsIncomplete)
                             {
-                                Console.WriteLine("Image incomplete with image status {0}...", rawImage.ImageStatus);
+                                Console.WriteLine("Image cam A incomplete with image status {0}...", rawImage.ImageStatus);
                             }
                             else
                             {
@@ -178,8 +178,9 @@ namespace TRACKING
 
                 catch (SpinnakerException ex)
                 {
-                  
 
+                    Console.WriteLine("Error: {0}", ex.Message);
+                    StateCamera = true;
                 }
 
             }
@@ -249,7 +250,9 @@ namespace TRACKING
             }
             catch (SpinnakerException ex)
             {
-             
+                Console.WriteLine("Error: {0}", ex.Message);
+                StateCamera = true;
+
                 result = -1;
             }
 
@@ -350,7 +353,7 @@ namespace TRACKING
 
                 catch (SpinnakerException ex)
                 {
-                    StateCamera = false;
+                    StateCamera = true;
                     NParametros.ActualizarParametro("StateCameraA", "Int", Convert.ToString(1));
                     Console.WriteLine("Error: {0}", ex.Message);
                     result = -1;
@@ -360,7 +363,7 @@ namespace TRACKING
             }
             else
             {
-                StateCamera = false;
+                StateCamera = true;
                 NParametros.ActualizarParametro("StateCameraA", "Int", Convert.ToString(1));
             }
             // Clear camera list before releasing system
