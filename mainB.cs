@@ -140,42 +140,6 @@ namespace prueba
                 Mat imageFloat = new Mat();
                 dst1.ConvertTo(imageFloat, MatType.CV_32F);
 
-
-
-                //if (IdReceta <= 9 )
-                //{
-
-                //    Mat outputImage = new Mat();
-                //    Cv2.Threshold(dst1, outputImage, 100, 255, ThresholdTypes.Binary);
-                //    Cv2.Threshold(outputImage, outputImage, 120, 255, ThresholdTypes.BinaryInv);
-
-                //    //Se invierte la imgen porque queda blanca
-                //    Cv2.BitwiseNot(outputImage, outputImage);
-
-                //}
-                ////Cambios 1 1/8 jairo (30 de junio)
-                //if (IdReceta > 11 ) // para las referencias grandes se le aplica un pow suave listo ?? 
-                //{
-                //    Cv2.Pow(imageFloat, 1.2, dst1);
-                //}
-                //if (IdReceta >6 && IdReceta<=11) // para estas ref ese valor esta bien  
-                //{
-                //    Cv2.Pow(imageFloat, 1.3, dst1);
-                //}
-                ////Cambios 1 1/8 jairo (30 de junio)
-                //if (IdReceta <= 6 )//habia un == se le aplica un pow de 1.4 para todas las referencias desde media hacia abajo
-                //{
-                //    Cv2.Pow(imageFloat, 1.4, dst1);
-                //}
-                //if(IdReceta == 12)//habia un == se le aplica un pow de 1.4 para todas las referencias desde media hacia abajo
-                //{
-                //    Cv2.Pow(imageFloat, 1.45, dst1);
-                //}
-               
-                //if (IdReceta == 8)//habia un == se le aplica un pow de 1.4 para todas las referencias desde media hacia abajo
-                //{
-                //    Cv2.Pow(imageFloat, 1.3, dst1);
-                //}
                 if (IdReceta != 9 || IdReceta != 6 || IdReceta!=1|| IdReceta != 2)
                 {
                     Cv2.Pow(imageFloat, 1.3, dst1);
@@ -194,8 +158,6 @@ namespace prueba
                 }
                 dst1.ConvertTo(dst1, MatType.CV_8UC1);
 
-                //Mat mask = new Mat();
-                //Cv2.Threshold(dst1, segmentacionRGB2, 130, 255, ThresholdTypes.Binary);
                 Cv2.Threshold(dst1, roiSegmentado, umbral_threshold, 255, ThresholdTypes.Binary);
 
                 if (IdReceta >= 1 && IdReceta < 9 && IdReceta != 5)
@@ -213,7 +175,7 @@ namespace prueba
                     Blocksize = 127;
                     Double = 0;
                 }
-                //Cambios 1 1/8 jairo (30 de junio)
+
                 if (IdReceta == 11 || IdReceta == 12 || IdReceta == 8)
                 {
                     Blocksize = 127;

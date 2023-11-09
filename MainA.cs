@@ -47,44 +47,13 @@ namespace prueba
             Cv2.CvtColor(image_binarizada, image_binarizada_rgb, ColorConversionCodes.GRAY2BGR);
 
             image_rgb = tracking_cameraA.TrackerObjecCameraA(image_rgb, image_binarizada_rgb, contornos_actual, Indexes_actual);
-            //if(imagcont==1) 
-            //    {
-            //        Cv2.DestroyWindow("Imagen final A");
-            //        imagcont = 0;
-            //    }
-
            
-            //}
-            //catch (Exception e) 
-            //{ 
-            //    image_rgb = image_rgb;
-            //    Cv2.ImShow("Imagen final A", image_binarizada);
-            //    Cv2.WaitKey(1);
-            //    imagcont = 1;
-            //}
-            // self.Release();
             return (image_rgb);
         }
 
 
         public static Mat PhiltroMorphologyCameraA(Mat imagenUmbralizada, int kernel_hor, int kernel_Ver, int kernel_circ_1, int kernel_circ_2)
         {
-
-            //// Aplica una transformación morfológica de erosión
-            //Mat imagenErocionada = new Mat();
-            //Mat imagenOpening = new Mat();
-            //Mat imagenErocionada_circ = new Mat();
-            //imagenUmbralizada = imagenUmbralizada;
-
-
-            // Mat kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(kernel_hor, kernel_Ver));
-            //Mat kernel_circ = Cv2.GetStructuringElement(MorphShapes.Ellipse, new OpenCvSharp.Size(kernel_circ_1, kernel_circ_2));
-
-            ////Cv2.MorphologyEx(imagenUmbralizada, imagenOpening, MorphTypes.Open, kernel_circ);
-            //Cv2.Erode(imagenUmbralizada, imagenErocionada_circ, kernel_circ);
-            //Cv2.Erode(imagenErocionada_circ, imagenErocionada, kernel);
-
-            //return imagenErocionada;
             //****************nueva modificacion*******************************
             Mat SSQUARE_KERNEL_VER = Mat.Ones(MatType.CV_8UC1, kernel_Ver * 1);
             Mat SQUARE_KERNEL_HOR = Mat.Ones(MatType.CV_8UC1, 1 * kernel_hor);
@@ -94,10 +63,6 @@ namespace prueba
             Cv2.MorphologyEx(imagenUmbralizada, imagen, MorphTypes.Erode, kernel1, iterations: 2);
             Cv2.MorphologyEx(imagen, imagen, MorphTypes.Open, SSQUARE_KERNEL_VER);
             Cv2.MorphologyEx(imagen, imagen, MorphTypes.Open, SQUARE_KERNEL_HOR);
-
-
-
-
             return imagen;
         }
 
@@ -122,14 +87,7 @@ namespace prueba
                 Mat dst2 = new Mat();
                 Mat frameRestado = new Mat();
 
-              
-
-
-
                 Cv2.CvtColor(frame, dst2, ColorConversionCodes.RGB2GRAY); //frame es la imagen con los 3 canales RGB
-
-
-                //Mat roiImg = dst1;
 
                 //Se agrega para quitar el ruido de fondo (jairo 28/06/2023)
                 Cv2.Subtract(dst2, fondo, dst2);
@@ -140,16 +98,6 @@ namespace prueba
                 Mat imageFloat = new Mat();
                 //se convierte la imagen a formato de 32 para poder aplicar el pow
                 dst1.ConvertTo(imageFloat, MatType.CV_32F);
-
-                ////Se aplica el pow
-                //if (mainB.IdReceta != 9)
-                //{
-                //    Cv2.Pow(imageFloat, 1.42, dst1);
-                //}
-                //if (mainB.IdReceta == 2)
-                //{
-                //    Cv2.Pow(imageFloat, 1.5, dst1);
-                //}
 
                 Mat roiSegmentado = new Mat();
                 //dst1.ConvertTo(dst1, MatType.CV_8UC1);// despues del pow es necesario volver la imagen nuevamente a formato de 8 con un solo canal
@@ -168,8 +116,6 @@ namespace prueba
                 }
                 dst1.ConvertTo(dst1, MatType.CV_8UC1);
 
-                //Mat mask = new Mat();
-                //Cv2.Threshold(dst1, segmentacionRGB2, 130, 255, ThresholdTypes.Binary);
                 Cv2.Threshold(dst1, roiSegmentado, umbral_threshold, 255, ThresholdTypes.Binary);
 
                 if (mainB.IdReceta >= 1 && mainB.IdReceta < 9 && mainB.IdReceta != 5)

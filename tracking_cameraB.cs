@@ -314,7 +314,7 @@ namespace prueba
                                                 if(VerificarUnion(0, cantidadContornos, 0))
                                                 {
                                                     auxcontador1++;
-                                                    Console.WriteLine("Conteo por Linea");
+                                                    //Console.WriteLine("Conteo por Linea");
                                                 }
                                             }
                                             //Paso la primera y segunda linea
@@ -325,7 +325,7 @@ namespace prueba
                                                     auxcontador1++;
                                                     auxcontador2++;
                                                     contador = auxcontador2;
-                                                    Console.WriteLine("Conteo por Linea");
+                                                    //Console.WriteLine("Conteo por Linea");
                                                 }
                                             }
                                             if (x_umbral2 < posXActual)
@@ -336,7 +336,7 @@ namespace prueba
                                                     auxcontador3++;
                                                     auxcontador2++;
                                                     contador = auxcontador2;
-                                                    Console.WriteLine("Conteo por Linea");
+                                                    //Console.WriteLine("Conteo por Linea");
                                                 }
                                             }
                                         }
@@ -350,7 +350,7 @@ namespace prueba
                                                 {
                                                     auxcontador2++;
                                                     contador = auxcontador2;
-                                                    Console.WriteLine("Conteo por Linea");
+                                                    //Console.WriteLine("Conteo por Linea");
                                                 }
                                             }
                                             //Esta despues de la 3ra linea
@@ -361,7 +361,7 @@ namespace prueba
                                                     auxcontador3++;
                                                     auxcontador2++;
                                                     contador = auxcontador2;
-                                                    Console.WriteLine("Conteo por Linea");
+                                                    //Console.WriteLine("Conteo por Linea");
                                                 }
                                             }
                                         }
@@ -373,7 +373,7 @@ namespace prueba
                                                 if (VerificarUnion(0, cantidadContornos, 0))
                                                 {
                                                     auxcontador3++;
-                                                    Console.WriteLine("Conteo por Linea");
+                                                    //Console.WriteLine("Conteo por Linea");
                                                 }
                                                 
                                             }
@@ -510,14 +510,19 @@ namespace prueba
                 {
                     contaFuncion++;
                 }
-                else
-                {
+                //                  ¡¡¡¡¡¡¡¡¡Este Bloque es para hacer pruebas NO BORRAR!!!!!!!!!
+                //================================================================================================
+                //================================================================================================
+                //else
+                //{
 
-                    Console.WriteLine("Iguales o no se han visto todos los contornos");
-                    Console.WriteLine(contadorEntrada);
-                    Console.WriteLine(estadoFinal);
-                    Console.WriteLine(estadoInicial);
-                }
+                //    Console.WriteLine("Iguales o no se han visto todos los contornos");
+                //    Console.WriteLine(contadorEntrada);
+                //    Console.WriteLine(estadoFinal);
+                //    Console.WriteLine(estadoInicial);
+                //}
+                //================================================================================================
+                //================================================================================================
             }
             else
             {
@@ -530,10 +535,15 @@ namespace prueba
         {
             if (estadoInicial > estadoFinal && banderaVerificador)
             {
+                //                  ¡¡¡¡¡¡¡¡¡Este Bloque es para hacer pruebas NO BORRAR!!!!!!!!!
+                //================================================================================================
+                //================================================================================================
                 //Console.WriteLine("Se juntaron");
                 //Console.WriteLine(contadorEntrada);
                 //Console.WriteLine(estadoFinal);
                 //Console.WriteLine(estadoInicial);
+                //================================================================================================
+                //================================================================================================
                 return true;
             }
             return false;
@@ -544,10 +554,15 @@ namespace prueba
             
             if (estadoInicial < estadoFinal && banderaVerificador)
             {
+                //                  ¡¡¡¡¡¡¡¡¡Este Bloque es para hacer pruebas NO BORRAR!!!!!!!!!
+                //================================================================================================
+                //================================================================================================
                 //Console.WriteLine("Se separaron");
                 //Console.WriteLine(contadorEntrada);
                 //Console.WriteLine(estadoFinal);
                 //Console.WriteLine(estadoInicial);
+                //================================================================================================
+                //================================================================================================
                 return true;
             }
             return false;
@@ -559,10 +574,15 @@ namespace prueba
             int estadoFinal = cantidadContornos - contadorEntrada;
             if (estadoInicial > estadoFinal && banderaVerificador)
             {
+                //                  ¡¡¡¡¡¡¡¡¡Este Bloque es para hacer pruebas NO BORRAR!!!!!!!!!
+                //================================================================================================
+                //================================================================================================
                 //Console.WriteLine("Se juntaron");
                 //Console.WriteLine(contadorEntrada);
                 //Console.WriteLine(estadoFinal);
                 //Console.WriteLine(estadoInicial);
+                //================================================================================================
+                //================================================================================================
                 return true;
             }
             return false;

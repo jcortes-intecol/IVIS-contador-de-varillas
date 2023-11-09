@@ -116,25 +116,6 @@ namespace prueba
             var numcontornos = Contornos.Length;
             var restacontor = contorAnterior - numcontornos;
 
-            //if (objetos.Count() != 0)
-            //{
-            //    //objetos = objetos.OrderByDescending(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);// para A y B
-            //    objetos = objetos.OrderBy(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            //    var primerElem = objetos.First();
-            //    if (primerElem.Value.Item1 <= lineaEliminar)
-            //    {
-
-            //        objetos.Remove(primerElem.Key);
-                   
-            //    }
-             
-            //    objetos = objetos.OrderByDescending(kpv => kpv.Value.Item1).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-            //}
-
-           
-
-
             var objetosAEliminar = new List<int>(objetos.Keys);
 
             var objetosNuevos = new Dictionary<int, (int, int, int, int, int)>();
@@ -143,8 +124,6 @@ namespace prueba
             x_umbral1 = (int)(image_rgb.Width * 0.5);//0.4 habia
             x_umbral2 = (int)(image_rgb.Width * 0.7);//
             lineaEliminar = (int)(image_rgb.Width * 0.97);
-
-
 
             Cv2.Line(image_rgb, x_umbral, 2, x_umbral, image_rgb.Height - 1, Scalar.Blue);
             Cv2.Line(image_rgb, x_umbral1, 2, x_umbral1, image_rgb.Height - 1, Scalar.Blue);
@@ -289,10 +268,6 @@ namespace prueba
 
                                 if (!pararconteo || dis < 3) //***********************************
                                 {
-                                    //if (posXActual == posXanterior)
-                                    //{
-                                    //    continue;
-                                    //} 
 
                                     if (done == 0) //linea a 0.3
                                     {
@@ -519,13 +494,18 @@ namespace prueba
                 {
                     contaFuncion++;
                 }
-                else
-                {
-                    Console.WriteLine("Iguales o no se han visto todos los contornos");
-                    Console.WriteLine(contadorEntrada);
-                    Console.WriteLine(estadoFinal);
-                    Console.WriteLine(estadoInicial);
-                }
+                //                  ¡¡¡¡¡¡¡¡¡Este Bloque es para hacer pruebas NO BORRAR!!!!!!!!!
+                //================================================================================================
+                //================================================================================================
+                //else
+                //{
+                //    Console.WriteLine("Iguales o no se han visto todos los contornos");
+                //    Console.WriteLine(contadorEntrada);
+                //    Console.WriteLine(estadoFinal);
+                //    Console.WriteLine(estadoInicial);
+                //}
+                //================================================================================================
+                //================================================================================================
             }
             else
             {
@@ -538,10 +518,15 @@ namespace prueba
         {
             if (estadoInicial > estadoFinal && banderaVerificador)
             {
-                Console.WriteLine("Se juntaron");
-                Console.WriteLine(contadorEntrada);
-                Console.WriteLine(estadoFinal);
-                Console.WriteLine(estadoInicial);
+                //                  ¡¡¡¡¡¡¡¡¡Este Bloque es para hacer pruebas NO BORRAR!!!!!!!!!
+                //================================================================================================
+                //================================================================================================
+                //Console.WriteLine("Se juntaron");
+                //Console.WriteLine(contadorEntrada);
+                //Console.WriteLine(estadoFinal);
+                //Console.WriteLine(estadoInicial);
+                //================================================================================================
+                //================================================================================================
                 return true;
             }
             return false;
@@ -552,10 +537,15 @@ namespace prueba
 
             if (estadoInicial < estadoFinal && banderaVerificador)
             {
-                Console.WriteLine("Se separaron");
-                Console.WriteLine(contadorEntrada);
-                Console.WriteLine(estadoFinal);
-                Console.WriteLine(estadoInicial);
+                //                  ¡¡¡¡¡¡¡¡¡Este Bloque es para hacer pruebas NO BORRAR!!!!!!!!!
+                //================================================================================================
+                //================================================================================================
+                //Console.WriteLine("Se separaron");
+                //Console.WriteLine(contadorEntrada);
+                //Console.WriteLine(estadoFinal);
+                //Console.WriteLine(estadoInicial);
+                //================================================================================================
+                //================================================================================================
                 return true;
             }
             return false;
@@ -567,10 +557,15 @@ namespace prueba
             int estadoFinal = cantidadContornos - contadorEntrada;
             if (estadoInicial > estadoFinal && banderaVerificador)
             {
-                Console.WriteLine("Se juntaron");
-                Console.WriteLine(contadorEntrada);
-                Console.WriteLine(estadoFinal);
-                Console.WriteLine(estadoInicial);
+                //                  ¡¡¡¡¡¡¡¡¡Este Bloque es para hacer pruebas NO BORRAR!!!!!!!!!
+                //================================================================================================
+                //================================================================================================
+                //Console.WriteLine("Se juntaron");
+                //Console.WriteLine(contadorEntrada);
+                //Console.WriteLine(estadoFinal);
+                //Console.WriteLine(estadoInicial);
+                //================================================================================================
+                //================================================================================================
                 return true;
             }
             return false;
