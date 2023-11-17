@@ -295,76 +295,76 @@ namespace prueba
                                         contador = auxcontador1;
                                     }
 
-                                    if ((w > width_umbral || h > height_humbral) && !banderaCount)
-                                    {
-                                        //Comenzo antes de la primera Linea
-                                        if (posXanterior < x_umbral1)
-                                        {
-                                            //Paso la primera linea
-                                            if (x_umbral1 < posXActual && posXActual < x_umbral)
-                                            {
-                                                if (VerificarUnion(0, cantidadContornos, 0))
-                                                {
-                                                    auxcontador1++;
-                                                }
-                                            }
-                                            //Paso la primera y segunda linea
-                                            if (x_umbral < posXActual && posXActual < x_umbral2)
-                                            {
-                                                if (VerificarUnion(0, cantidadContornos, 0))
-                                                {
-                                                    auxcontador1++;
-                                                    auxcontador2++;
-                                                    contador = auxcontador2;
-                                                }
-                                            }
-                                            if (x_umbral2 < posXActual)
-                                            {
-                                                if (VerificarUnion(0, cantidadContornos, 0))
-                                                {
-                                                    auxcontador1++;
-                                                    auxcontador3++;
-                                                    auxcontador2++;
-                                                    contador = auxcontador2;
-                                                }
-                                            }
-                                        }
-                                        //comenzo antes de la segunda linea
-                                        else if (posXanterior < x_umbral)
-                                        {
-                                            //Esta antes de la 3ra linea
-                                            if (x_umbral < posXActual && posXActual < x_umbral2)
-                                            {
-                                                if (VerificarUnion(0, cantidadContornos, 0))
-                                                {
-                                                    auxcontador2++;
-                                                    contador = auxcontador2;
-                                                }
-                                            }
-                                            //Esta despues de la 3ra linea
-                                            if (x_umbral2 < posXActual)
-                                            {
-                                                if (VerificarUnion(0, cantidadContornos, 0))
-                                                {
-                                                    auxcontador3++;
-                                                    auxcontador2++;
-                                                    contador = auxcontador2;
-                                                }
-                                            }
-                                        }
-                                        else if (posXanterior < x_umbral2)
-                                        {
+                                    //if ((w > width_umbral || h > height_humbral) && !banderaCount)
+                                    //{
+                                    //    //Comenzo antes de la primera Linea
+                                    //    if (posXanterior < x_umbral1)
+                                    //    {
+                                    //        //Paso la primera linea
+                                    //        if (x_umbral1 < posXActual && posXActual < x_umbral)
+                                    //        {
+                                    //            if (VerificarUnion(0, cantidadContornos, 0))
+                                    //            {
+                                    //                auxcontador1++;
+                                    //            }
+                                    //        }
+                                    //        //Paso la primera y segunda linea
+                                    //        if (x_umbral < posXActual && posXActual < x_umbral2)
+                                    //        {
+                                    //            if (VerificarUnion(0, cantidadContornos, 0))
+                                    //            {
+                                    //                auxcontador1++;
+                                    //                auxcontador2++;
+                                    //                contador = auxcontador2;
+                                    //            }
+                                    //        }
+                                    //        if (x_umbral2 < posXActual)
+                                    //        {
+                                    //            if (VerificarUnion(0, cantidadContornos, 0))
+                                    //            {
+                                    //                auxcontador1++;
+                                    //                auxcontador3++;
+                                    //                auxcontador2++;
+                                    //                contador = auxcontador2;
+                                    //            }
+                                    //        }
+                                    //    }
+                                    //    //comenzo antes de la segunda linea
+                                    //    else if (posXanterior < x_umbral)
+                                    //    {
+                                    //        //Esta antes de la 3ra linea
+                                    //        if (x_umbral < posXActual && posXActual < x_umbral2)
+                                    //        {
+                                    //            if (VerificarUnion(0, cantidadContornos, 0))
+                                    //            {
+                                    //                auxcontador2++;
+                                    //                contador = auxcontador2;
+                                    //            }
+                                    //        }
+                                    //        //Esta despues de la 3ra linea
+                                    //        if (x_umbral2 < posXActual)
+                                    //        {
+                                    //            if (VerificarUnion(0, cantidadContornos, 0))
+                                    //            {
+                                    //                auxcontador3++;
+                                    //                auxcontador2++;
+                                    //                contador = auxcontador2;
+                                    //            }
+                                    //        }
+                                    //    }
+                                    //    else if (posXanterior < x_umbral2)
+                                    //    {
 
-                                            if (x_umbral2 < posXActual)
-                                            {
-                                                if (VerificarUnion(0, cantidadContornos, 0))
-                                                {
-                                                    auxcontador3++;
-                                                }
+                                    //        if (x_umbral2 < posXActual)
+                                    //        {
+                                    //            if (VerificarUnion(0, cantidadContornos, 0))
+                                    //            {
+                                    //                auxcontador3++;
+                                    //            }
 
-                                            }
-                                        }
-                                    }
+                                    //        }
+                                    //    }
+                                    //}
                                     banderaCount = false;
                                 }
                                 else //*****************************
@@ -484,16 +484,16 @@ namespace prueba
 
                 int estadoInicial = objetos.Count();
                 int estadoFinal = cantidadContornos - contadorEntrada;
-                if (VerificarUnion(estadoInicial, estadoFinal) && !banderaCount)
-                {
-                    contaFuncion++;
-                    banderaCount = true;
-                }
+                //if (VerificarUnion(estadoInicial, estadoFinal) && !banderaCount)
+                //{
+                //    contaFuncion++;
+                //    banderaCount = true;
+                //}
 
-                if (VerificarSeparacion(estadoInicial, estadoFinal))
-                {
-                    contaFuncion++;
-                }
+                //if (VerificarSeparacion(estadoInicial, estadoFinal))
+                //{
+                //    contaFuncion++;
+                //}
                 //                  ¡¡¡¡¡¡¡¡¡Este Bloque es para hacer pruebas NO BORRAR!!!!!!!!!
                 //================================================================================================
                 //================================================================================================

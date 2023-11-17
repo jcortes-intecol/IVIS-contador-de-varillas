@@ -303,7 +303,7 @@ namespace prueba
                                         contador = auxcontador1;
                                     }
 
-                                    if ((w> width_umbral || h>height_humbral) && !banderaCount)
+                                    if ((w> width_umbral || h>height_humbral) && !banderaCount || mainB.IdReceta != 8)
                                     {
                                         //Comenzo antes de la primera Linea
                                         if(posXanterior < x_umbral1)
@@ -506,7 +506,7 @@ namespace prueba
                 //   banderaCount = true;
                 //}
 
-                if (VerificarSeparacion(estadoInicial, estadoFinal) )
+                if (VerificarSeparacion(estadoInicial, estadoFinal) || mainB.IdReceta != 8)
                 {
                     contaFuncion++;
                 }

@@ -108,7 +108,7 @@ namespace prueba
                 }
                 if (mainB.IdReceta == 9 || mainB.IdReceta == 6)
                 {
-                    Cv2.Pow(imageFloat, 1.45, dst1);
+                    Cv2.Pow(imageFloat, 1.4, dst1);
                 }
                 if (mainB.IdReceta == 2)//habia un == se le aplica un pow de 1.4 para todas las referencias desde media hacia abajo
                 {

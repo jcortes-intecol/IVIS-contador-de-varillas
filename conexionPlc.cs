@@ -261,7 +261,7 @@ namespace prueba
                                 break;
                             }
 
-                            Thread.Sleep(100);//150 valor de trabajo; 3:17 pm esta a 120
+                            Thread.Sleep(150);//150 valor de trabajo; 3:17 pm esta a 120
 
                             //temporizador.Stop();
 
