@@ -113,8 +113,8 @@ namespace prueba
             var sortedContours1 = Contornos.OrderBy(contour => Cv2.BoundingRect(contour).Y);
             var sortedContours = Contornos.OrderBy(sortedContours1 => Cv2.BoundingRect(sortedContours1).X);
 
-            var numcontornos = Contornos.Length;
-            var restacontor = contorAnterior - numcontornos;
+            //var numcontornos = Contornos.Length;
+            //var restacontor = contorAnterior - numcontornos;
 
             var objetosAEliminar = new List<int>(objetos.Keys);
 
@@ -243,7 +243,6 @@ namespace prueba
                             var idObjeto = data.Key;
                             posXanterior = value.Item1;
                             posYanterior = value.Item2;
-
                             done = value.Item3;//se adiciono
                             done1 = value.Item4;//se adiciono
                             done2 = value.Item5;//se adiciono
@@ -265,7 +264,6 @@ namespace prueba
                                 }
 
                                 Cv2.DrawContours(image_rgb, sortedContours, contourIndex, Scalar.DarkGreen, 2);
-
                                 if (!pararconteo || dis < 3) //***********************************
                                 {
 
@@ -295,76 +293,76 @@ namespace prueba
                                         contador = auxcontador1;
                                     }
 
-                                    //if ((w > width_umbral || h > height_humbral) && !banderaCount)
-                                    //{
-                                    //    //Comenzo antes de la primera Linea
-                                    //    if (posXanterior < x_umbral1)
-                                    //    {
-                                    //        //Paso la primera linea
-                                    //        if (x_umbral1 < posXActual && posXActual < x_umbral)
-                                    //        {
-                                    //            if (VerificarUnion(0, cantidadContornos, 0))
-                                    //            {
-                                    //                auxcontador1++;
-                                    //            }
-                                    //        }
-                                    //        //Paso la primera y segunda linea
-                                    //        if (x_umbral < posXActual && posXActual < x_umbral2)
-                                    //        {
-                                    //            if (VerificarUnion(0, cantidadContornos, 0))
-                                    //            {
-                                    //                auxcontador1++;
-                                    //                auxcontador2++;
-                                    //                contador = auxcontador2;
-                                    //            }
-                                    //        }
-                                    //        if (x_umbral2 < posXActual)
-                                    //        {
-                                    //            if (VerificarUnion(0, cantidadContornos, 0))
-                                    //            {
-                                    //                auxcontador1++;
-                                    //                auxcontador3++;
-                                    //                auxcontador2++;
-                                    //                contador = auxcontador2;
-                                    //            }
-                                    //        }
-                                    //    }
-                                    //    //comenzo antes de la segunda linea
-                                    //    else if (posXanterior < x_umbral)
-                                    //    {
-                                    //        //Esta antes de la 3ra linea
-                                    //        if (x_umbral < posXActual && posXActual < x_umbral2)
-                                    //        {
-                                    //            if (VerificarUnion(0, cantidadContornos, 0))
-                                    //            {
-                                    //                auxcontador2++;
-                                    //                contador = auxcontador2;
-                                    //            }
-                                    //        }
-                                    //        //Esta despues de la 3ra linea
-                                    //        if (x_umbral2 < posXActual)
-                                    //        {
-                                    //            if (VerificarUnion(0, cantidadContornos, 0))
-                                    //            {
-                                    //                auxcontador3++;
-                                    //                auxcontador2++;
-                                    //                contador = auxcontador2;
-                                    //            }
-                                    //        }
-                                    //    }
-                                    //    else if (posXanterior < x_umbral2)
-                                    //    {
+                                    if ((w > width_umbral || h > height_humbral) && !banderaCount && mainB.IdReceta > 8)
+                                    {
+                                        //Comenzo antes de la primera Linea
+                                        if (posXanterior < x_umbral1)
+                                        {
+                                            //Paso la primera linea
+                                            if (x_umbral1 < posXActual && posXActual < x_umbral)
+                                            {
+                                                if (VerificarUnion(0, cantidadContornos, 0))
+                                                {
+                                                    auxcontador1++;
+                                                }
+                                            }
+                                            //Paso la primera y segunda linea
+                                            if (x_umbral < posXActual && posXActual < x_umbral2)
+                                            {
+                                                if (VerificarUnion(0, cantidadContornos, 0))
+                                                {
+                                                    auxcontador1++;
+                                                    auxcontador2++;
+                                                    contador = auxcontador2;
+                                                }
+                                            }
+                                            if (x_umbral2 < posXActual)
+                                            {
+                                                if (VerificarUnion(0, cantidadContornos, 0))
+                                                {
+                                                    auxcontador1++;
+                                                    auxcontador3++;
+                                                    auxcontador2++;
+                                                    contador = auxcontador2;
+                                                }
+                                            }
+                                        }
+                                        //comenzo antes de la segunda linea
+                                        else if (posXanterior < x_umbral)
+                                        {
+                                            //Esta antes de la 3ra linea
+                                            if (x_umbral < posXActual && posXActual < x_umbral2)
+                                            {
+                                                if (VerificarUnion(0, cantidadContornos, 0))
+                                                {
+                                                    auxcontador2++;
+                                                    contador = auxcontador2;
+                                                }
+                                            }
+                                            //Esta despues de la 3ra linea
+                                            if (x_umbral2 < posXActual)
+                                            {
+                                                if (VerificarUnion(0, cantidadContornos, 0))
+                                                {
+                                                    auxcontador3++;
+                                                    auxcontador2++;
+                                                    contador = auxcontador2;
+                                                }
+                                            }
+                                        }
+                                        else if (posXanterior < x_umbral2)
+                                        {
 
-                                    //        if (x_umbral2 < posXActual)
-                                    //        {
-                                    //            if (VerificarUnion(0, cantidadContornos, 0))
-                                    //            {
-                                    //                auxcontador3++;
-                                    //            }
+                                            if (x_umbral2 < posXActual)
+                                            {
+                                                if (VerificarUnion(0, cantidadContornos, 0))
+                                                {
+                                                    auxcontador3++;
+                                                }
 
-                                    //        }
-                                    //    }
-                                    //}
+                                            }
+                                        }
+                                    }
                                     banderaCount = false;
                                 }
                                 else //*****************************
@@ -484,16 +482,18 @@ namespace prueba
 
                 int estadoInicial = objetos.Count();
                 int estadoFinal = cantidadContornos - contadorEntrada;
+                // Este es un fragmento de codigo que puede presentar redundancia,
+                // NO estoy seguro por eso lo dejo.
                 //if (VerificarUnion(estadoInicial, estadoFinal) && !banderaCount)
                 //{
                 //    contaFuncion++;
                 //    banderaCount = true;
                 //}
 
-                //if (VerificarSeparacion(estadoInicial, estadoFinal))
-                //{
-                //    contaFuncion++;
-                //}
+                if (VerificarSeparacion(estadoInicial, estadoFinal) && mainB.IdReceta >8)
+                {
+                    contaFuncion++;
+                }
                 //                  ¡¡¡¡¡¡¡¡¡Este Bloque es para hacer pruebas NO BORRAR!!!!!!!!!
                 //================================================================================================
                 //================================================================================================

@@ -303,8 +303,9 @@ namespace prueba
                                         contador = auxcontador1;
                                     }
 
-                                    if ((w> width_umbral || h>height_humbral) && !banderaCount || mainB.IdReceta != 8)
+                                    if ((w> width_umbral || h>height_humbral) && !banderaCount && mainB.IdReceta > 8)
                                     {
+                                       
                                         //Comenzo antes de la primera Linea
                                         if(posXanterior < x_umbral1)
                                         {
@@ -500,13 +501,15 @@ namespace prueba
 
                 int estadoInicial = objetos.Count();
                 int estadoFinal = cantidadContornos - contadorEntrada;
+                // Este es un fragmento de codigo que puede presentar redundancia,
+                // NO estoy seguro por eso lo dejo.
                 //if (VerificarUnion(estadoInicial, estadoFinal) &&!banderaCount)
                 //{
                 //    contaFuncion++;
                 //   banderaCount = true;
                 //}
 
-                if (VerificarSeparacion(estadoInicial, estadoFinal) || mainB.IdReceta != 8)
+                if (VerificarSeparacion(estadoInicial, estadoFinal) && mainB.IdReceta > 8)
                 {
                     contaFuncion++;
                 }
